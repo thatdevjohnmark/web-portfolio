@@ -6,7 +6,7 @@ import SkillsSection from './components/home/skills/SkillsSection';
 import ContactCTA from './components/home/contact/ContactCTA';
 
 export const metadata = {
-  title: 'John Mark Tactacan - QA Specialist',
+  title: 'thatdevjohnmark',
   description: 'Portfolio of John Mark Tactacan, a QA Specialist with hands-on experience in manual testing, data validation, and full-stack projects.',
 };
 
