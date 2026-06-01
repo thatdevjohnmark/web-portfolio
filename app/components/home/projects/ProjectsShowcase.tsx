@@ -32,7 +32,7 @@ export default function ProjectsShowcase() {
                   </Badge>
                 ))}
               </div>
-              <Link href={project.link} target="_blank">
+              <Link href={project.link} target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="sm" className="w-full">
                   View Project
                 </Button>

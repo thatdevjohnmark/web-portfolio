@@ -42,7 +42,7 @@ export default function Footer() {
           <h3 className="text-xl font-bold mb-4" style={{fontFamily: 'Inter'}}>Connect</h3>
           <div className="flex space-x-4">
               <a
-                href="https://github.com"
+                href="https://github.com/thatdevjohnmark"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#B0B0B0] hover:text-[#FFFFFF] transition-colors"
@@ -50,20 +50,10 @@ export default function Footer() {
                 GitHub
               </a>
               <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:johnmark.tactacan@gmail.com"
                 className="text-[#B0B0B0] hover:text-[#FFFFFF] transition-colors"
               >
-                LinkedIn
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#B0B0B0] hover:text-[#FFFFFF] transition-colors"
-              >
-                Twitter
+                Email
               </a>
             </div>
           </div>
