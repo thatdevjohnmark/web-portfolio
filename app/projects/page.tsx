@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Navbar from '@/app/components/Navbar';
+import Footer from '@/app/components/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
 import Container from '@/app/components/Container';
 import Link from 'next/link';

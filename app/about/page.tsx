@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link'; // 1. Import Next.js Link
 
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import Container from '../components/Container';
-import SectionTitle from '../components/ui/SectionTittle';
-import Card from '../components/ui/Card';
-import Badge from '../components/ui/Badge';
-import Button from '../components/ui/Button'; // 2. Import your Button component
+import Navbar from '@/app/components/Navbar';
+import Footer from '@/app/components/Footer';
+import Container from '@/app/components/Container';
+import SectionTitle from '@/app/components/ui/SectionTittle';
+import Card from '@/app/components/ui/Card';
+import Badge from '@/app/components/ui/Badge';
+import Button from '@/app/components/ui/Button'; // 2. Import your Button component
 
 export const metadata: Metadata = {
   title: 'About - John Mark Tactacan',
