@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link'; // 1. Import Next.js Link
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -6,6 +7,7 @@ import Container from '../components/Container';
 import SectionTitle from '../components/ui/SectionTittle';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
+import Button from '../components/ui/Button'; // 2. Import your Button component
 
 export const metadata: Metadata = {
   title: 'About - John Mark Tactacan',
@@ -57,6 +59,13 @@ export default function AboutPage() {
                 <div className="font-semibold text-[#FFFFFF]">Location</div>
                 <div>Carranglan, Nueva Ecija, Philippines</div>
               </div>
+
+              {/* 3. Added the Link and Button here under your location */}
+                <div className="mt-8">
+                 <Link href="/playground" passHref>
+                    <Button>Go to Playground</Button>
+                </Link>
+                </div>
             </Card>
 
             <Card hover={false}>
@@ -88,7 +97,13 @@ export default function AboutPage() {
                 </div>
                 <div>Central Luzon State University</div>
                 <div className="mt-2">08/2021 – 01/2026</div>
-                <div>Science City of Muñoz, Nueva Ecija, Philippines</div>
+                <div className="mb-4">Science City of Muñoz, Nueva Ecija, Philippines</div>
+                
+                <Link href="/journal" passHref>
+                  <Button variant="outline" size="sm" className="w-full border-[#333333] hover:border-white text-white mt-2 cursor-pointer">
+                    View Chronological Journal Timeline →
+                  </Button>
+                </Link>
               </div>
             </Card>
 

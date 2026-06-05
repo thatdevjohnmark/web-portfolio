@@ -4,7 +4,7 @@ export const projects = [
     title: "ABANG – Real-time Jeepney Tracking App",
     description: "Capstone full-stack mobile and web app with real-time tracking. Manually tested key flows, validated location data accuracy, and performed functional and edge-case testing prior to deployment.",
     tags: ["Full Stack", "Manual Testing", "Data Validation", "Functional Testing"],
-    link: "https://github.com/thatdevjohnmark",
+    link: "https://abang-theta.vercel.app/",
     image: "/images/profile/profile.jpg"
   },
   {

@@ -1,0 +1,784 @@
+{
+  "anime": [
+    {
+      "series_title": "100-man no Inochi no Ue ni Ore wa Tatteiru",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "5-toubun no Hanayome",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "5-toubun no Hanayome \u222c",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "86 Part 2",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Akame ga Kill!",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Angel Beats!",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Another",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Ansatsu Kyoushitsu",
+      "series_type": "TV",
+      "series_episodes": "22"
+    },
+    {
+      "series_title": "Arifureta Shokugyou de Sekai Saikyou",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Black Clover",
+      "series_type": "TV",
+      "series_episodes": "170"
+    },
+    {
+      "series_title": "Blue Period",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Boku no Hero Academia 5th Season",
+      "series_type": "TV",
+      "series_episodes": "25"
+    },
+    {
+      "series_title": "Bokutachi no Remake",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Bungou Stray Dogs",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Bungou Stray Dogs 2nd Season",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Burn the Witch",
+      "series_type": "ONA",
+      "series_episodes": "3"
+    },
+    {
+      "series_title": "Charlotte",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Cheat Kusushi no Slow Life: Isekai ni Tsukurou Drugstore",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Darling in the FranXX",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Darwin's Game",
+      "series_type": "TV",
+      "series_episodes": "11"
+    },
+    {
+      "series_title": "Death Note",
+      "series_type": "TV",
+      "series_episodes": "37"
+    },
+    {
+      "series_title": "Dr. Stone",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Dr. Stone: Ryuusui",
+      "series_type": "TV Special",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Dr. Stone: Stone Wars",
+      "series_type": "TV",
+      "series_episodes": "11"
+    },
+    {
+      "series_title": "Fate/Grand Order: First Order",
+      "series_type": "TV Special",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Fate/Grand Order: Zettai Majuu Sensen Babylonia",
+      "series_type": "TV",
+      "series_episodes": "21"
+    },
+    {
+      "series_title": "Fate/stay night Movie: Heaven's Feel - I. Presage Flower",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Fate/stay night Movie: Heaven's Feel - II. Lost Butterfly",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Fate/stay night Movie: Heaven's Feel - III. Spring Song",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Fate/stay night: Unlimited Blade Works",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Fate/stay night: Unlimited Blade Works 2nd Season",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Fate/stay night: Unlimited Blade Works Prologue",
+      "series_type": "TV Special",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Fate/Zero",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Fate/Zero 2nd Season",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Gamers!",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Gate: Jieitai Kanochi nite, Kaku Tatakaeri",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Gate: Jieitai Kanochi nite, Kaku Tatakaeri Part 2",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Gekkan Shoujo Nozaki-kun",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Goblin Slayer",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Haikyuu!! Second Season",
+      "series_type": "TV",
+      "series_episodes": "25"
+    },
+    {
+      "series_title": "Hataraku Maou-sama!!",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Hibike! Euphonium",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Hibike! Euphonium 2",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Hibike! Euphonium Movie 3: Chikai no Finale",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Horimiya",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Hunter x Hunter (2011)",
+      "series_type": "TV",
+      "series_episodes": "148"
+    },
+    {
+      "series_title": "Isekai Maou to Shoukan Shoujo no Dorei Majutsu",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Isekai Ojisan",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Isekai wa Smartphone to Tomo ni.",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Itai no wa Iya nanode Bougyoryoku ni Kyokufuri Shitai to Omoimasu.",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Jaku-Chara Tomozaki-kun",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Jujutsu Kaisen",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Jujutsu Kaisen 0 Movie",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Jujutsu Kaisen 2nd Season",
+      "series_type": "TV",
+      "series_episodes": "23"
+    },
+    {
+      "series_title": "Juuni Taisen",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "K-On!",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "K-On!!",
+      "series_type": "TV",
+      "series_episodes": "26"
+    },
+    {
+      "series_title": "Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kaguya-sama wa Kokurasetai: Ultra Romantic",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Kaizoku Oujo",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kakegurui",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kakkou no Iinazuke",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Kamisama ni Natta Hi",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kanojo mo Kanojo",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kanojo, Okarishimasu",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kara no Kyoukai Movie 1: Fukan Fuukei",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Katsugeki/Touken Ranbu",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Kemono Jihen",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kenja no Mago",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kimetsu no Yaiba",
+      "series_type": "TV",
+      "series_episodes": "26"
+    },
+    {
+      "series_title": "Kimetsu no Yaiba Movie: Mugen Ressha-hen",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Kimetsu no Yaiba: Mugen Ressha-hen",
+      "series_type": "TV",
+      "series_episodes": "7"
+    },
+    {
+      "series_title": "Kimetsu no Yaiba: Yuukaku-hen",
+      "series_type": "TV",
+      "series_episodes": "11"
+    },
+    {
+      "series_title": "Kimi no Na wa.",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Kimi to Boku no Saigo no Senjou, Aruiwa Sekai ga Hajimaru Seisen",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kiseijuu: Sei no Kakuritsu",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Koe no Katachi",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Komi-san wa, Comyushou desu.",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kono Subarashii Sekai ni Shukufuku wo!",
+      "series_type": "TV",
+      "series_episodes": "10"
+    },
+    {
+      "series_title": "Kotonoha no Niwa",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Kuma Kuma Kuma Bear",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Kumo desu ga, Nani ka?",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Kuroko no Basket",
+      "series_type": "TV",
+      "series_episodes": "25"
+    },
+    {
+      "series_title": "Kuroko no Basket 2nd Season",
+      "series_type": "TV",
+      "series_episodes": "25"
+    },
+    {
+      "series_title": "Log Horizon",
+      "series_type": "TV",
+      "series_episodes": "25"
+    },
+    {
+      "series_title": "Lycoris Recoil",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Mahouka Koukou no Rettousei",
+      "series_type": "TV",
+      "series_episodes": "26"
+    },
+    {
+      "series_title": "Majo no Tabitabi",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Maoyuu Maou Yuusha",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Masamune-kun no Revenge",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Mieruko-chan",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Mushoku Tensei: Isekai Ittara Honki Dasu",
+      "series_type": "TV",
+      "series_episodes": "11"
+    },
+    {
+      "series_title": "Mushoku Tensei: Isekai Ittara Honki Dasu Part 2",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Nanatsu no Taizai",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Nanatsu no Taizai: Imashime no Fukkatsu",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Netoge no Yome wa Onnanoko ja Nai to Omotta?",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Nisekoi",
+      "series_type": "TV",
+      "series_episodes": "20"
+    },
+    {
+      "series_title": "No Game No Life",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Noragami",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Noragami Aragoto",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "One Piece",
+      "series_type": "TV",
+      "series_episodes": "0"
+    },
+    {
+      "series_title": "One Punch Man",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Owari no Seraph",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Owari no Seraph: Nagoya Kessen-hen",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Platinum End",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Plunderer",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Princess Connect! Re:Dive",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Prison School",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Re-Main",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Rokudenashi Majutsu Koushi to Akashic Records",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Saenai Heroine no Sodatekata",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Saenai Heroine no Sodatekata \u266d",
+      "series_type": "TV",
+      "series_episodes": "11"
+    },
+    {
+      "series_title": "Saenai Heroine no Sodatekata Fine",
+      "series_type": "Movie",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Seirei Gensouki",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Sekai Saikou no Ansatsusha, Isekai Kizoku ni Tensei suru",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Shigatsu wa Kimi no Uso",
+      "series_type": "TV",
+      "series_episodes": "22"
+    },
+    {
+      "series_title": "Shin no Nakama ja Nai to Yuusha no Party wo Oidasareta node, Henkyou de Slow Life suru Koto ni Shimashita",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Shingeki no Kyojin",
+      "series_type": "TV",
+      "series_episodes": "25"
+    },
+    {
+      "series_title": "Shingeki no Kyojin OVA",
+      "series_type": "OVA",
+      "series_episodes": "3"
+    },
+    {
+      "series_title": "Shingeki no Kyojin Season 2",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Shingeki no Kyojin Season 3",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Shingeki no Kyojin Season 3 Part 2",
+      "series_type": "TV",
+      "series_episodes": "10"
+    },
+    {
+      "series_title": "Shingeki no Kyojin: Kuinaki Sentaku",
+      "series_type": "OVA",
+      "series_episodes": "2"
+    },
+    {
+      "series_title": "Shingeki no Kyojin: Lost Girls",
+      "series_type": "OVA",
+      "series_episodes": "3"
+    },
+    {
+      "series_title": "Shingeki no Kyojin: The Final Season",
+      "series_type": "TV",
+      "series_episodes": "16"
+    },
+    {
+      "series_title": "Shingeki no Kyojin: The Final Season Part 2",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Shokugeki no Souma",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Slime Taoshite 300-nen, Shiranai Uchi ni Level Max ni Nattemashita",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Spy x Family",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "SSSS.Gridman",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Steins;Gate",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Sword Art Online",
+      "series_type": "TV",
+      "series_episodes": "25"
+    },
+    {
+      "series_title": "Takt Op. Destiny",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Tales of Zestiria the Cross",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Tales of Zestiria the Cross 2nd Season",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Tatoeba Last Dungeon Mae no Mura no Shounen ga Joban no Machi de Kurasu Youna Monogatari",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Tensei shitara Slime Datta Ken",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "Tensei shitara Slime Datta Ken 2nd Season",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Tensei shitara Slime Datta Ken 2nd Season Part 2",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Tensura Nikki: Tensei shitara Slime Datta Ken",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "The God of High School",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Tokyo Revengers",
+      "series_type": "TV",
+      "series_episodes": "24"
+    },
+    {
+      "series_title": "World Trigger",
+      "series_type": "TV",
+      "series_episodes": "73"
+    },
+    {
+      "series_title": "Yahari Ore no Seishun Love Comedy wa Machigatteiru.",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Yahari Ore no Seishun Love Comedy wa Machigatteiru. Zoku",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Yahari Ore no Seishun Love Comedy wa Machigatteiru. Zoku OVA",
+      "series_type": "OVA",
+      "series_episodes": "1"
+    },
+    {
+      "series_title": "Yakusoku no Neverland",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Yakusoku no Neverland 2nd Season",
+      "series_type": "TV",
+      "series_episodes": "11"
+    },
+    {
+      "series_title": "Yamada-kun to 7-nin no Majo",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Yofukashi no Uta",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Youjo Senki",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e",
+      "series_type": "TV",
+      "series_episodes": "12"
+    },
+    {
+      "series_title": "Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e 2nd Season",
+      "series_type": "TV",
+      "series_episodes": "13"
+    },
+    {
+      "series_title": "Yuukoku no Moriarty",
+      "series_type": "TV",
+      "series_episodes": "11"
+    },
+    {
+      "series_title": "Yuukoku no Moriarty Part 2",
+      "series_type": "TV",
+      "series_episodes": "13"
+    }
+  ]
+}
