@@ -11,7 +11,7 @@ import { projects } from '@/app/data/project';
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen bg-[#000000]">
+    <main className="min-h-screen bg-background dark:bg-background-dark">
       <Navbar />
       <Container className="py-20">
         <header className="mb-16">
@@ -19,7 +19,7 @@ export default function ProjectsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="text-4xl md:text-6xl font-bold text-[#FFFFFF] mb-4"
+            className="text-4xl md:text-6xl font-bold text-text-primary dark:text-text-primary-dark mb-4"
             style={{ fontFamily: 'Inter' }}
           >
             Projects
@@ -28,7 +28,7 @@ export default function ProjectsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-            className="text-[#B0B0B0] text-lg max-w-2xl"
+            className="text-text-secondary dark:text-text-secondary-dark text-lg max-w-2xl"
           >
             A collection of work spanning full-stack development, QA specialization, and data validation.
           </motion.p>
@@ -44,9 +44,9 @@ export default function ProjectsPage() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ y: -8 }}
-                className="bg-[#0A0A0A] border border-[#333333] rounded-xl overflow-hidden flex flex-col group transition-colors hover:border-[#444444]"
+                className="bg-surface dark:bg-surface-dark border-border dark:border-border-dark rounded-xl overflow-hidden flex flex-col group transition-colors hover:border-accent dark:hover:border-accent-dark"
               >
-                <div className="relative h-48 w-full bg-[#1A1A1A] overflow-hidden">
+                <div className="relative h-48 w-full bg-surface dark:bg-surface-dark overflow-hidden">
                   <Image 
                     src={project.image} 
                     alt={project.title}
@@ -55,22 +55,22 @@ export default function ProjectsPage() {
                   />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold text-[#FFFFFF] mb-3" style={{ fontFamily: 'Inter' }}>
+                  <h3 className="text-xl font-bold text-text-primary dark:text-text-primary-dark mb-3" style={{ fontFamily: 'Inter' }}>
                     {project.title}
                   </h3>
-                  <p className="text-[#B0B0B0] text-sm line-clamp-3 mb-6">
+                  <p className="text-text-secondary dark:text-text-secondary-dark text-sm line-clamp-3 mb-6">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-8">
                     {project.tags.map(tag => (
-                      <span key={tag} className="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 bg-[#1A1A1A] text-[#B0B0B0] border border-[#333333] rounded">
+                      <span key={tag} className="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 bg-surface dark:bg-surface-dark text-text-secondary dark:text-text-secondary-dark border-border dark:border-border-dark rounded">
                         {tag}
                       </span>
                     ))}
                   </div>
                   <Link 
                     href={`/projects/articles/${project.id}`}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-[#FFFFFF] mt-auto group/link"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-text-primary dark:text-text-primary-dark mt-auto group/link"
                   >
                     View Full Article
                     <motion.span

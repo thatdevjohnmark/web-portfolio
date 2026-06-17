@@ -65,7 +65,7 @@ export default function AnimePage() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-background dark:bg-background-dark text-text-primary dark:text-text-primary-dark">
       <Navbar />
 
       <section className="py-16">
@@ -87,7 +87,7 @@ export default function AnimePage() {
             {currentItems.map((anime) => (
               <div
                 key={anime.id}
-                className="relative aspect-[16/9] bg-[#141414] border border-[#222222] rounded-md overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:border-[#555555]"
+                className="relative aspect-[16/9] bg-surface dark:bg-surface-dark border-border dark:border-border-dark rounded-md overflow-hidden group cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:border-accent dark:hover:border-accent-dark"
               >
                 {/* Background Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent z-0" />
@@ -103,7 +103,7 @@ export default function AnimePage() {
                   </h4>
 
                   <div className="flex items-center gap-2 text-xs text-[#B0B0B0] mb-2">
-                    <span className="text-green-500 font-semibold">
+                    <span className="text-green-500 font-semibold"> {/* Assuming green-500 is a status color that remains consistent */}
                       {anime.rating}
                     </span>
                     <span>{anime.year}</span>
@@ -112,8 +112,8 @@ export default function AnimePage() {
                   <div className="flex flex-wrap gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {anime.tags?.map((tag) => (
                       <span
-                        key={tag}
-                        className="text-[10px] bg-[#222222] text-[#E5E5E5] px-2 py-0.5 rounded"
+                        key={tag} 
+                        className="text-[10px] bg-border dark:bg-border-dark text-text-secondary dark:text-text-secondary-dark px-2 py-0.5 rounded"
                       >
                         {tag}
                       </span>
@@ -138,7 +138,7 @@ export default function AnimePage() {
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="px-3 py-1.5 rounded border border-[#333333] bg-[#111111] text-xs font-medium text-white transition hover:bg-[#222222] disabled:opacity-40 disabled:hover:bg-[#111111] disabled:cursor-not-allowed"
+                className="px-3 py-1.5 rounded border-border dark:border-border-dark bg-surface dark:bg-surface-dark text-text-primary dark:text-text-primary-dark text-xs font-medium transition hover:bg-accent dark:hover:bg-accent-dark disabled:opacity-40 disabled:hover:bg-surface dark:disabled:hover:bg-surface-dark disabled:cursor-not-allowed"
               >
                 Prev
               </button>
@@ -153,8 +153,8 @@ export default function AnimePage() {
                     onClick={() => handlePageChange(pageNum)}
                     className={`w-8 h-8 rounded text-xs transition font-bold ${
                       currentPage === pageNum
-                        ? 'bg-[#E50914] text-white border border-[#E50914]'
-                        : 'border border-[#333333] bg-transparent text-gray-400 hover:text-white hover:bg-[#111111]'
+                        ? 'bg-brand-primary text-text-primary dark:text-text-primary-dark border-brand-primary'
+                        : 'border-border dark:border-border-dark bg-transparent text-text-secondary dark:text-text-secondary-dark hover:text-text-primary dark:hover:text-text-primary-dark hover:bg-surface dark:hover:bg-surface-dark'
                     }`}
                   >
                     {pageNum}
@@ -166,7 +166,7 @@ export default function AnimePage() {
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1.5 rounded border border-[#333333] bg-[#111111] text-xs font-medium text-white transition hover:bg-[#222222] disabled:opacity-40 disabled:hover:bg-[#111111] disabled:cursor-not-allowed"
+                className="px-3 py-1.5 rounded border-border dark:border-border-dark bg-surface dark:bg-surface-dark text-text-primary dark:text-text-primary-dark text-xs font-medium transition hover:bg-accent dark:hover:bg-accent-dark disabled:opacity-40 disabled:hover:bg-surface dark:disabled:hover:bg-surface-dark disabled:cursor-not-allowed"
               >
                 Next
               </button>
