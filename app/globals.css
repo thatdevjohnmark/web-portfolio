@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 @import './styles/animations.css';
 
@@ -16,21 +15,103 @@
   --color-action-primary: #FFFFFF;
   --color-interactive: #808080;
   --color-success: #666666;
+
+  /* Pixel Grid Size */
+  --pixel-size: 4px;
 }
 
 @theme inline {
-  --font-sans: Inter;
-  --font-mono: "JetBrains Mono";
+  --font-pixel: var(--font-pixel);
+  --font-terminal: var(--font-terminal);
+  --font-mono: var(--font-mono);
 }
+
+/* ============================================
+   8-BIT PIXEL AESTHETIC — GLOBAL STYLES
+   ============================================ */
 
 html {
   background: var(--color-bg-base);
   color: var(--color-text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'VT323', 'Courier New', monospace;
 }
 
 body {
   background: var(--color-bg-base);
   color: var(--color-text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+/* Scanline overlay for CRT effect */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03) 0px,
+    rgba(0, 0, 0, 0.03) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Pixelated rendering for images */
+img {
+  image-rendering: pixelated;
+}
+
+/* Pixel border utility */
+.pixel-border {
+  border: var(--pixel-size) solid var(--color-border);
+  box-shadow: 
+    inset calc(var(--pixel-size) * -1) calc(var(--pixel-size) * -1) 0 0 var(--color-bg-base),
+    var(--pixel-size) var(--pixel-size) 0 0 var(--color-bg-base);
+}
+
+.pixel-border-light {
+  border: var(--pixel-size) solid #555;
+  box-shadow: 
+    inset calc(var(--pixel-size) * -1) calc(var(--pixel-size) * -1) 0 0 var(--color-bg-base),
+    var(--pixel-size) var(--pixel-size) 0 0 var(--color-bg-base);
+}
+
+/* Glitch text effect */
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 1px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-1px, 2px); }
+  80% { transform: translate(1px, -2px); }
+}
+
+.glitch-hover:hover {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* CRT flicker */
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.85; }
+  94% { opacity: 1; }
+  96% { opacity: 0.9; }
+  97% { opacity: 1; }
+}
+
+.crt-flicker {
+  animation: crt-flicker 4s infinite;
+}
+
+/* Selection style */
+::selection {
+  background: #FFFFFF;
+  color: #000000;
 }

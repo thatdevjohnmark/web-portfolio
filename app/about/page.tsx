@@ -41,12 +41,11 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
             <Card hover={false}>
               <h3
-                className="text-2xl font-bold text-[#FFFFFF] mb-4"
-                style={{ fontFamily: 'Inter' }}
+                className="font-pixel text-[15px] text-[#FFFFFF] mb-4 tracking-wider"
               >
                 John Mark Tactacan
               </h3>
-              <p className="text-[#B0B0B0] leading-relaxed">
+              <p className="font-terminal text-[20px] text-[#B0B0B0] leading-relaxed">
                 Detail-oriented IT graduate with hands-on experience in full-stack development,
                 manual testing, data validation, and bug resolution across multiple projects.
                 Experienced in requirement analysis, process documentation, and progress reporting
@@ -55,8 +54,8 @@ export default function AboutPage() {
                 collaborative environment.
               </p>
 
-              <div className="mt-6 text-[#B0B0B0]">
-                <div className="font-semibold text-[#FFFFFF]">Location</div>
+              <div className="mt-6 font-terminal text-[20px] text-[#B0B0B0]">
+                <div className="font-pixel text-[11px] text-[#FFFFFF]">Location</div>
                 <div>Carranglan, Nueva Ecija, Philippines</div>
               </div>
 
@@ -70,8 +69,7 @@ export default function AboutPage() {
 
             <Card hover={false}>
               <h3
-                className="text-2xl font-bold text-[#FFFFFF] mb-4"
-                style={{ fontFamily: 'Inter' }}
+                className="font-pixel text-[13px] text-[#FFFFFF] mb-4 tracking-wider"
               >
                 Core Competencies
               </h3>
@@ -86,13 +84,12 @@ export default function AboutPage() {
 
             <Card hover={false}>
               <h3
-                className="text-2xl font-bold text-[#FFFFFF] mb-2"
-                style={{ fontFamily: 'Inter' }}
+                className="font-pixel text-[13px] text-[#FFFFFF] mb-2 tracking-wider"
               >
                 Education
               </h3>
-              <div className="text-[#B0B0B0]">
-                <div className="text-[#FFFFFF] font-semibold">
+              <div className="font-terminal text-[20px] text-[#B0B0B0]">
+                <div className="text-[#FFFFFF] font-terminal text-[22px]">
                   Bachelor of Science in Information Technology (Major in Systems Development)
                 </div>
                 <div>Central Luzon State University</div>
@@ -109,13 +106,12 @@ export default function AboutPage() {
 
             <Card hover={false}>
               <h3
-                className="text-2xl font-bold text-[#FFFFFF] mb-2"
-                style={{ fontFamily: 'Inter' }}
+                className="font-pixel text-[13px] text-[#FFFFFF] mb-2 tracking-wider"
               >
                 Licenses & Certifications
               </h3>
-              <div className="text-[#B0B0B0]">
-                <div className="text-[#FFFFFF] font-semibold">AWS Academy Cloud Foundations</div>
+              <div className="font-terminal text-[20px] text-[#B0B0B0]">
+                <div className="text-[#FFFFFF] font-terminal text-[22px]">AWS Academy Cloud Foundations</div>
               </div>
             </Card>
           </div>

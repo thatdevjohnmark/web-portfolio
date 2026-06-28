@@ -7,7 +7,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#000000] text-[#FFFFFF] py-12 mt-20 border-t border-[#333333]">
+    <footer className="bg-[#000000] text-[#FFFFFF] py-12 mt-20 border-t-[3px] border-[#333333]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* About */}
@@ -17,8 +17,8 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-          <h3 className="text-xl font-bold mb-4" style={{fontFamily: 'Inter'}}>John Mark Tactacan</h3>
-          <p className="text-[#B0B0B0]">
+            <h3 className="text-sm font-pixel mb-4 tracking-wider">John Mark Tactacan</h3>
+            <p className="text-[#B0B0B0] font-terminal text-xl">
               QA Specialist focused on manual testing, data validation, and clear documentation.
             </p>
           </motion.div>
@@ -30,8 +30,8 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-          <h3 className="text-xl font-bold mb-4" style={{fontFamily: 'Inter'}}>Quick Links</h3>
-          <ul className="space-y-2 text-[#B0B0B0]">
+            <h3 className="text-sm font-pixel mb-4 tracking-wider">Quick Links</h3>
+            <ul className="space-y-2 font-terminal text-xl text-[#B0B0B0]">
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
                   About
@@ -57,7 +57,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-          <h3 className="text-xl font-bold mb-4" style={{fontFamily: 'Inter'}}>Connect</h3>
+            <h3 className="text-sm font-pixel mb-4 tracking-wider">Connect</h3>
           <div className="flex space-x-4">
               <motion.a
                 href="https://github.com/thatdevjohnmark"

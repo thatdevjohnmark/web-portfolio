@@ -33,18 +33,17 @@ export default function ExperiencePage() {
                 <div className="flex items-start justify-between gap-6">
                   <div>
                     <h3
-                      className="text-2xl font-bold text-[#FFFFFF]"
-                      style={{ fontFamily: 'Inter' }}
+                      className="font-pixel text-[14px] text-[#FFFFFF] tracking-wider"
                     >
                       {item.role}
                     </h3>
-                    <div className="text-[#B0B0B0] mt-1">{item.company}</div>
+                    <div className="font-terminal text-[20px] text-[#B0B0B0] mt-1">{item.company}</div>
                   </div>
 
-                  <div className="text-sm text-[#B0B0B0] whitespace-nowrap">{item.period}</div>
+                  <div className="font-pixel text-[9px] text-[#B0B0B0] whitespace-nowrap">{item.period}</div>
                 </div>
 
-                <p className="text-[#B0B0B0] mt-4 leading-relaxed flex-1">{item.description}</p>
+                <p className="font-terminal text-[18px] text-[#B0B0B0] mt-4 leading-relaxed flex-1">{item.description}</p>
 
                 <div className="flex flex-wrap gap-2 mt-6">
                   {item.technologies.map((tag) => (

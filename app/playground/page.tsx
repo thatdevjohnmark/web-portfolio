@@ -41,7 +41,7 @@ export default function PlaygroundPage() {
             {/* Anime Slot */}
    <Card hover={true}>
   <div className="text-xs font-mono text-[#B0B0B0] mb-2">HOBBY_01</div>
-  <h3 className="text-xl font-bold text-[#FFFFFF] mb-2" style={{ fontFamily: 'Inter' }}>
+  <h3 className="font-pixel text-[13px] text-[#FFFFFF] mb-2 tracking-wider">
     Anime Culture
   </h3>
   <p className="text-[#888888] text-sm leading-relaxed mb-4">

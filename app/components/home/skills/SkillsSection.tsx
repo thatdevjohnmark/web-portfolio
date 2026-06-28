@@ -6,10 +6,10 @@ import { skills } from '../../../data/skills';
 
 export default function SkillsSection() {
   return (
-    <section className="py-20 bg-[#1A1A1A] border-b border-[#333333]">
+    <section className="py-20 bg-[#1A1A1A] border-b-[3px] border-[#333333]">
       <Container>
         <SectionTitle
-          title="Skills & Expertise"
+          title="[ SKILLS & EXPERTISE ]"
           subtitle="Technologies and tools I work with"
           centered
         />
@@ -17,7 +17,7 @@ export default function SkillsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
           {skills.map((skillGroup) => (
             <Card key={skillGroup.category}>
-              <h3 className="text-2xl font-bold text-[#FFFFFF] mb-4" style={{fontFamily: 'Inter'}}>
+              <h3 className="font-pixel text-[13px] text-[#FFFFFF] mb-4 tracking-wider">
                 {skillGroup.category}
               </h3>
               <div className="flex flex-wrap gap-2">

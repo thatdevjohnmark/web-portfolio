@@ -10,8 +10,9 @@ export default function Card({ children, className = '', hover = true }: CardPro
   return (
     <div
       className={`
-        bg-[#1A1A1A] rounded-lg shadow-md p-6 border border-[#333333]
-        ${hover ? 'hover:shadow-lg hover:border-[#FFFFFF]/30 transition-all duration-300' : ''}
+        bg-[#1A1A1A] border-[3px] border-[#333333] p-6
+        shadow-[4px_4px_0_#000000]
+        ${hover ? 'hover:border-[#808080] hover:shadow-[6px_6px_0_#000000] hover:-translate-y-[2px] transition-all duration-150' : ''}
         ${className}
       `}
     >

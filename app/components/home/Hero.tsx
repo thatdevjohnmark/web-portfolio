@@ -1,222 +1,274 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../ui/Button';
 import Container from '../Container';
 import Link from 'next/link';
 
 const logLines = [
-  'Initializing QA integrity audit...',
-  'Checking system requirements manifest...',
-  '[PASS] Requirement 101: Manual exploratory flows verified.',
-  '[PASS] Requirement 102: Cross-viewport responsive alignment stable.',
-  'Scanning DOM layout for WCAG contrast compliance...',
-  '[PASS] WCAG AAA: Contrast ratio satisfies all guidelines.',
-  'Running edge-case boundary checks on state input fields...',
-  '[PASS] Error boundary handlers active and stable.',
-  'Validating local storage state persistence...',
-  '[PASS] State persistence verified across sessions.',
-  'Manual review sequence: COMPLETE.',
-  'System integrity: 100% VERIFIED.',
-  '------------------------------------------------',
-  'Awaiting deployment trigger. Standing by...'
+  '> INIT.SYS v2.0.1',
+  '> Loading QA integrity kernel...',
+  '[ OK ] Manual exploratory flows verified.',
+  '[ OK ] Cross-viewport responsive alignment stable.',
+  '[ OK ] WCAG AAA: Contrast ratio satisfies all guidelines.',
+  '[ OK ] Error boundary handlers active and stable.',
+  '[ OK ] State persistence verified across sessions.',
+  '> Manual review sequence: COMPLETE.',
+  '> System integrity: 100% VERIFIED.',
+  '> READY.',
+];
+
+const specsLines = [
+  '================================',
+  '  CANDIDATE SPECIFICATION v1.0  ',
+  '================================',
+  '',
+  'NAME:    John Mark Tactacan',
+  'ROLE:    QA Specialist',
+  'STACK:   Next.js / React / TypeScript',
+  'FOCUS:   Manual Testing & Audit',
+  '',
+  '================================',
+  '  QUALITY METRICS               ',
+  '================================',
+  '',
+  'BUG REPRO RATE:    100%',
+  'TEST COVERAGE:     Complete',
+  'DOCUMENTATION:     Thorough',
+  'ATTN TO DETAIL:    Maximum',
+  '',
+  '================================',
+  '  SYSTEM STATUS: NOMINAL        ',
+  '================================',
 ];
 
 export default function Hero() {
-  const [activeTab, setActiveTab] = useState<'profile' | 'logs' | 'specs'>('profile');
+  const [activeTab, setActiveTab] = useState<'specs' | 'logs' | 'stats'>('specs');
   const [visibleLogs, setVisibleLogs] = useState<string[]>([]);
   const [logIndex, setLogIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const fullTitle = 'thatdevjohnmark';
   const logsContainerRef = useRef<HTMLDivElement>(null);
 
-  const roles = [
-    'QA Specialist',
-    'Programmer',
-    'Full-stack Developer',
-    'Manual Tester'
-  ];
-  const [currentRole, setCurrentRole] = useState(roles[0]);
-
+  // Typewriter effect for name
   useEffect(() => {
+    let i = 0;
     const interval = setInterval(() => {
-      setCurrentRole((prevRole) => {
-        const remainingRoles = roles.filter((r) => r !== prevRole);
-        const randomIndex = Math.floor(Math.random() * remainingRoles.length);
-        return remainingRoles[randomIndex];
-      });
-    }, 3000);
+      if (i <= fullTitle.length) {
+        setDisplayText(fullTitle.slice(0, i));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 100);
     return () => clearInterval(interval);
   }, []);
 
-  // Cycle logs to simulate test runner
+  // Cycle logs
   useEffect(() => {
     if (activeTab !== 'logs') return;
-    
-    // Reset if index is 0
     if (logIndex === 0) {
       setVisibleLogs([logLines[0]]);
       setLogIndex(1);
       return;
     }
-
-    const interval = setTimeout(() => {
+    const timeout = setTimeout(() => {
       if (logIndex < logLines.length) {
         setVisibleLogs((prev) => [...prev, logLines[logIndex]]);
         setLogIndex((prev) => prev + 1);
       } else {
-        // Hold for 4 seconds, then restart logs loop
-        const resetTimeout = setTimeout(() => {
-          setLogIndex(0);
-        }, 4000);
+        const resetTimeout = setTimeout(() => setLogIndex(0), 3000);
         return () => clearTimeout(resetTimeout);
       }
-    }, 700);
-
-    return () => clearTimeout(interval);
+    }, 500);
+    return () => clearTimeout(timeout);
   }, [logIndex, activeTab]);
 
-  // Autoscroll terminal logs
   useEffect(() => {
     if (activeTab === 'logs' && logsContainerRef.current) {
       logsContainerRef.current.scrollTop = logsContainerRef.current.scrollHeight;
     }
   }, [visibleLogs, activeTab]);
 
+  const roles = ['QA_SPECIALIST', 'PROGRAMMER', 'FULLSTACK_DEV', 'MANUAL_TESTER'];
+  const [currentRole, setCurrentRole] = useState(roles[0]);
+  const [roleFrame, setRoleFrame] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleFrame((prev) => {
+        const next = (prev + 1) % (roles.length * 8);
+        if (next % 8 === 0) {
+          setCurrentRole(roles[next / 8]);
+        }
+        return next;
+      });
+    }, 150);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="relative overflow-hidden border-b border-[#1A1A1A] bg-[#000000] py-20 lg:py-28">
-      {/* Decorative Technical Grid & Scanlines */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#33333315_1px,transparent_1px),linear-gradient(to_bottom,#33333315_1px,transparent_1px)] bg-[size:30px_30px] animate-grid-move [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_80%,transparent_100%)] pointer-events-none" />
+    <section className="relative overflow-hidden border-b-[3px] border-[#1A1A1A] bg-[#000000] py-16 lg:py-24">
+      {/* Pixel Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1A1A1A_1px,transparent_1px),linear-gradient(to_bottom,#1A1A1A_1px,transparent_1px)] bg-[size:16px_16px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" />
       
-      {/* Sleek radial background glows */}
-      <div className="absolute top-0 right-0 h-[600px] w-[600px] rounded-full bg-[#FFFFFF]/2 blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 h-[500px] w-[500px] rounded-full bg-[#808080]/3 blur-[110px] pointer-events-none" />
+      {/* Glowing orbs */}
+      <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-[#FFFFFF]/[0.02] blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-[#808080]/[0.03] blur-[80px] pointer-events-none" />
 
-      <Container className="relative z-10 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
-        <div className="space-y-8">
-          {/* Diagnostic status badge */}
-          <div className="badge-pulse inline-flex items-center gap-3 rounded border border-[#222222] bg-[#0A0A0A]/90 px-3.5 py-1.5 text-xs font-mono tracking-widest text-[#B0B0B0] backdrop-blur-md">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-40"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-white"></span>
+      <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
+        {/* LEFT COLUMN */}
+        <div className="space-y-6">
+          {/* Status badge */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-3 border-[2px] border-[#333] bg-[#0A0A0A] px-4 py-2"
+          >
+            <span className="relative flex h-3 w-3">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-none bg-white opacity-50" />
+              <span className="relative inline-flex h-3 w-3 bg-white" />
             </span>
-            SYSTEM_STATUS: ACTIVE // MAN_QA_INTEGRITY_OK
-          </div>
+            <span className="font-pixel text-[8px] text-[#B0B0B0] tracking-[0.15em]">
+              SYS:ACTIVE
+            </span>
+          </motion.div>
 
-          {/* Core branding title */}
-          <div className="animate-fade-in-up">
-            <h1 className="max-w-3xl text-5xl font-bold leading-[1.1] text-[#FFFFFF] md:text-6xl tracking-tight font-sans">
-              Ensuring integrity
-              <span className="block mt-1 bg-gradient-to-r from-[#FFFFFF] via-[#808080] to-[#FFFFFF] bg-clip-text text-transparent">
-                at the speed of dev.
+          {/* Title */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <h1 className="space-y-3">
+              <span className="block font-pixel text-[clamp(14px,3vw,22px)] text-[#FFFFFF] leading-relaxed tracking-wider">
+                ENSURING INTEGRITY
               </span>
-              <span className="mt-4 block text-2xl font-normal text-[#666666] font-mono">
-                thatdevjohnmark <span className="inline-block animate-cursor-blink text-white font-sans">_</span>
+              <span className="block font-pixel text-[clamp(11px,2.2vw,16px)] text-[#808080] tracking-wider">
+                AT THE SPEED OF DEV.
+              </span>
+              <span className="mt-4 block font-terminal text-[clamp(24px,5vw,40px)] text-[#FFFFFF]">
+                {displayText}
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
+                  className="inline-block ml-1 text-white"
+                >
+                  _
+                </motion.span>
               </span>
             </h1>
-          </div>
+          </motion.div>
 
-          {/* Pitch statement */}
-          <p className="max-w-2xl text-base leading-7 text-[#B0B0B0] md:text-lg font-mono">
-            Exploratory testing protocols, rigorous UI/UX audits, and bulletproof bug verification. I break systems systematically to ensure they hold strong in production.
-          </p>
+          {/* Role display */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="border-[2px] border-[#333] bg-[#0A0A0A] px-4 py-3 inline-block"
+          >
+            <span className="font-pixel text-[10px] text-[#666] tracking-wider">ROLE: </span>
+            <span className="font-pixel text-[10px] text-[#FFFFFF] tracking-wider glitch-hover">
+              {currentRole}
+            </span>
+          </motion.div>
 
-          {/* Interactive CTAs */}
-          <div className="flex flex-wrap gap-4 pt-2">
+          {/* Pitch */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="max-w-xl font-terminal text-[18px] md:text-[22px] text-[#B0B0B0] leading-relaxed"
+          >
+            Exploratory testing protocols, rigorous UI/UX audits, and bulletproof bug verification. 
+            I break systems systematically to ensure they hold strong in production.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-wrap gap-4 pt-2"
+          >
             <Link href="/projects">
-              <Button size="lg" className="bg-[#FFFFFF] text-[#000000] hover:bg-[#E0E0E0] border border-white hover:border-[#E0E0E0] shadow-md hover:shadow-xl transition-all duration-300 font-semibold cursor-pointer">
-                Execute Review
+              <Button variant="pixel" size="lg">
+                [ EXECUTE REVIEW ]
               </Button>
             </Link>
             <Link href="/contact">
-              <Button size="lg" variant="outline" className="border-[#333333] hover:border-white text-white bg-transparent hover:bg-white/5 transition-all duration-300 cursor-pointer">
-                Open Connection
+              <Button variant="outline" size="lg" className="font-pixel text-[11px]">
+                [ OPEN CONNECTION ]
               </Button>
             </Link>
-          </div>
+          </motion.div>
 
-          {/* QA diagnostic panels */}
-          <div className="mt-10 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3">
+          {/* Metric blocks */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="grid grid-cols-3 gap-3 max-w-lg pt-4"
+          >
             {[
-              {
-                id: 'M01',
-                title: 'MANUAL TESTING',
-                val: '100% Coverage',
-                progress: 'w-full',
-                status: 'COMPLETE'
-              },
-              {
-                id: 'M02',
-                title: 'BUG REPLICATION',
-                val: 'Reproducible',
-                progress: 'w-[90%]',
-                status: 'VERIFIED'
-              },
-              {
-                id: 'M03',
-                title: 'AUDIT REPORTING',
-                val: 'Zero Ambiguity',
-                progress: 'w-full',
-                status: 'SECURE'
-              }
-            ].map(({ id, title, val, progress, status }) => (
+              { label: 'MANUAL', value: '100%', sub: 'COVERAGE' },
+              { label: 'BUG REPRO', value: 'FULL', sub: 'VERIFIED' },
+              { label: 'AUDIT', value: 'ZERO', sub: 'AMBIGUITY' },
+            ].map(({ label, value, sub }) => (
               <div
-                key={id}
-                className="group relative overflow-hidden rounded border border-[#1A1A1A] bg-[#050505] p-4 transition-all duration-300 hover:border-[#444444] hover:bg-[#0A0A0A]"
+                key={label}
+                className="border-[2px] border-[#333] bg-[#0A0A0A] p-3 text-center hover:border-[#808080] transition-colors duration-150"
               >
-                <div className="flex items-center justify-between text-[9px] font-mono text-[#555555]">
-                  <span>{id} // PROT_LVL</span>
-                  <span className="text-[#888888]">{status}</span>
-                </div>
-                <div className="mt-2 font-sans font-bold text-xs text-[#FFFFFF] tracking-wider uppercase">
-                  {title}
-                </div>
-                <div className="mt-1 font-mono text-[11px] text-[#B0B0B0]">
-                  {val}
-                </div>
-                {/* Micro progress bar for interactive flavor */}
-                <div className="mt-3 h-1 w-full bg-[#151515] rounded-full overflow-hidden">
-                  <div className={`h-full bg-white transition-all duration-500 ${progress}`} />
-                </div>
+                <div className="font-pixel text-[7px] text-[#666] tracking-wider mb-1">{label}</div>
+                <div className="font-pixel text-[14px] text-[#FFFFFF]">{value}</div>
+                <div className="font-pixel text-[6px] text-[#555] tracking-wider mt-1">{sub}</div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
-        {/* Right Column: Immersive Tech Mockup with Interactive Tabs */}
-        <div className="relative w-full max-w-lg lg:max-w-none">
-          {/* Shadow glow base */}
-          <div className="absolute -inset-2 rounded-2xl bg-white/3 blur-2xl pointer-events-none animate-glow" />
+        {/* RIGHT COLUMN - Terminal */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative"
+        >
+          <div className="absolute -inset-1 bg-white/[0.02] blur-xl pointer-events-none" />
           
-          {/* Main frame wrapper */}
-          <div className="relative overflow-hidden rounded-xl border border-[#222222] bg-[#0A0A0A] shadow-2xl transition-all duration-500 hover:border-[#333333]">
-            {/* Terminal Window top bar */}
-            <div className="flex items-center justify-between border-b border-[#1A1A1A] bg-[#0F0F0F] px-4 py-3">
-              {/* Window controls */}
+          <div className="relative border-[3px] border-[#333] bg-[#0A0A0A] overflow-hidden">
+            {/* Terminal header */}
+            <div className="flex items-center justify-between border-b-[2px] border-[#333] bg-[#050505] px-4 py-2">
               <div className="flex gap-2">
-                <div className="h-3 w-3 rounded-full bg-[#333333]" />
-                <div className="h-3 w-3 rounded-full bg-[#222222]" />
-                <div className="h-3 w-3 rounded-full bg-[#444444]" />
+                <div className="w-3 h-3 border-[2px] border-[#555] bg-[#333]" />
+                <div className="w-3 h-3 border-[2px] border-[#555] bg-[#222]" />
+                <div className="w-3 h-3 border-[2px] border-[#555] bg-[#444]" />
               </div>
-              <div className="font-mono text-[10px] text-[#555555] tracking-widest uppercase">
-                INTEGRITY_CONSOLE_V1.0
-              </div>
-              <div className="h-3 w-6" /> {/* Balance spacer */}
+              <span className="font-pixel text-[7px] text-[#555] tracking-[0.2em]">
+                TERMINAL_V1.0
+              </span>
+              <div className="w-10" />
             </div>
 
-            {/* Tab navigation */}
-            <div className="flex border-b border-[#1A1A1A] bg-[#070707] text-xs font-mono">
+            {/* Tabs */}
+            <div className="flex border-b-[2px] border-[#333] bg-[#050505]">
               {[
-                { key: 'profile', label: '👤 profile.json' },
-                { key: 'logs', label: '🧪 test-runner.log' },
-                { key: 'specs', label: '📋 specs.md' }
+                { key: 'specs' as const, label: '[ SPECS ]' },
+                { key: 'logs' as const, label: '[ LOGS ]' },
+                { key: 'stats' as const, label: '[ STATS ]' },
               ].map(({ key, label }) => (
                 <button
                   key={key}
-                  onClick={() => setActiveTab(key as any)}
-                  className={`border-r border-[#1A1A1A] px-4 py-2.5 transition-all text-left cursor-pointer ${
+                  onClick={() => {
+                    setActiveTab(key);
+                    if (key === 'logs') setLogIndex(0);
+                  }}
+                  className={`px-4 py-2 font-pixel text-[9px] tracking-wider cursor-pointer transition-colors duration-150 border-r-[2px] border-[#333] ${
                     activeTab === key
-                      ? 'bg-[#0A0A0A] text-[#FFFFFF] border-b border-b-white font-medium'
-                      : 'text-[#666666] hover:bg-[#0E0E0E] hover:text-[#B0B0B0]'
+                      ? 'bg-[#0A0A0A] text-[#FFFFFF]'
+                      : 'text-[#666] hover:text-[#B0B0B0] hover:bg-[#080808]'
                   }`}
                 >
                   {label}
@@ -224,151 +276,88 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* Terminal / Code screen area */}
-            <div className="terminal-screen relative aspect-[4/3] w-full overflow-hidden bg-[#0A0A0A] p-5 font-mono text-[12px] leading-relaxed text-[#B0B0B0]">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#FFFFFF]/1 to-transparent pointer-events-none animate-scanline-move h-1/2 w-full" />
-              
-              {/* Tab 1 content: JSON specification */}
-              {activeTab === 'profile' && (
-                <div className="h-full overflow-y-auto space-y-2 text-[#888888]">
-                  <p className="text-[#555555]">// Full audit candidate specification</p>
-                  <p>
-                    <span className="text-[#FFFFFF]">{'{'}</span>
-                  </p>
-                  <p className="pl-4">
-                    <span className="text-[#B0B0B0]">&quot;candidate&quot;</span>: <span className="text-[#FFFFFF]">&quot;Tactacan, John Mark&quot;</span>,
-                  </p>
-                  <p className="pl-4">
-                    <span className="text-[#B0B0B0]">&quot;role&quot;</span>: <span className="text-[#FFFFFF]">&quot;{currentRole}&quot;</span>,
-                  </p>
-                  <p className="pl-4">
-                    <span className="text-[#B0B0B0]">&quot;verification_focus&quot;</span>: <span className="text-[#FFFFFF]">&quot;Exploratory & Sanity Auditing&quot;</span>,
-                  </p>
-                  <p className="pl-4">
-                    <span className="text-[#B0B0B0]">&quot;location&quot;</span>: <span className="text-[#FFFFFF]">&quot;Nueva Ecija, PH&quot;</span>,
-                  </p>
-                  <p className="pl-4">
-                    <span className="text-[#B0B0B0]">&quot;coverage_rate&quot;</span>: <span className="text-[#FFFFFF]">&quot;100% Manual Integrity&quot;</span>,
-                  </p>
-                  <p className="pl-4">
-                    <span className="text-[#B0B0B0]">&quot;status&quot;</span>: <span className="text-[#FFFFFF]">&quot;ready_for_verification_contracts&quot;</span>
-                  </p>
-                  <p>
-                    <span className="text-[#FFFFFF]">{'}'}</span>
-                  </p>
-                </div>
+            {/* Terminal content */}
+            <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0A0A0A] p-4">
+              {/* Scanline */}
+              <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.05)_2px,rgba(0,0,0,0.05)_4px)] pointer-events-none z-10" />
+
+              {/* SPECS tab */}
+              {activeTab === 'specs' && (
+                <motion.div
+                  key="specs"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="h-full overflow-y-auto font-terminal text-[16px] leading-relaxed text-[#B0B0B0] whitespace-pre"
+                >
+                  {specsLines.map((line, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.03 }}
+                      className={line.startsWith('=') ? 'text-[#808080]' : line.startsWith('  ') && line.includes(':') ? 'text-[#FFFFFF]' : 'text-[#B0B0B0]'}
+                    >
+                      {line}
+                    </motion.div>
+                  ))}
+                </motion.div>
               )}
 
-              {/* Tab 2 content: Running log output */}
+              {/* LOGS tab */}
               {activeTab === 'logs' && (
-                <div ref={logsContainerRef} className="h-full overflow-y-auto space-y-1">
-                  <div className="flex items-center justify-between text-[10px] text-[#555555] border-b border-[#1A1A1A] pb-1.5 mb-2">
-                    <span>$ npm run test:integrity</span>
-                    <span className="animate-pulse text-[#FFFFFF]">● LIVE MONITOR</span>
-                  </div>
-                  {visibleLogs.map((line, idx) => {
-                    const isPass = line.startsWith('[PASS]');
-                    return (
-                      <div
-                        key={idx}
-                        className={`text-[11px] whitespace-pre-wrap font-mono ${
-                          isPass
-                            ? 'text-white font-medium'
-                            : line.startsWith('[INFO]')
-                            ? 'text-[#888888]'
-                            : 'text-[#666666]'
-                        }`}
+                <div
+                  ref={logsContainerRef}
+                  className="h-full overflow-y-auto font-terminal text-[16px] leading-relaxed space-y-1"
+                >
+                  <AnimatePresence>
+                    {visibleLogs.map((line, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className={line.startsWith('[ OK ]') ? 'text-[#FFFFFF]' : line.startsWith('>') ? 'text-[#B0B0B0]' : 'text-[#808080]'}
                       >
                         {line}
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              )}
+
+              {/* STATS tab */}
+              {activeTab === 'stats' && (
+                <motion.div
+                  key="stats"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="h-full font-terminal text-[16px] space-y-4"
+                >
+                  {[
+                    { label: 'TEST CASES', val: '100%', bar: 'w-full' },
+                    { label: 'BUG DETECT', val: '95%', bar: 'w-[95%]' },
+                    { label: 'DOCS', val: '100%', bar: 'w-full' },
+                    { label: 'DEPLOY', val: 'READY', bar: 'w-[90%]' },
+                  ].map(({ label, val, bar }) => (
+                    <div key={label}>
+                      <div className="flex justify-between font-pixel text-[10px] text-[#B0B0B0] mb-1">
+                        <span>{label}</span>
+                        <span className="text-[#FFFFFF]">{val}</span>
                       </div>
-                    );
-                  })}
-                  {/* Flashing terminal cursor at the log tail */}
-                  <div className="flex items-center gap-1 text-[11px]">
-                    <span className="text-[#FFFFFF]">$</span>
-                    <div className="h-3 w-1.5 bg-[#FFFFFF] animate-cursor-blink" />
-                  </div>
-                </div>
-              )}
-
-              {/* Tab 3 content: Specs comparing testing paradigms */}
-              {activeTab === 'specs' && (
-                <div className="h-full overflow-y-auto space-y-3 text-[11px]">
-                  <p className="text-[#555555]">// High-Fidelity Manual Assurance Specs</p>
-                  <div className="border border-[#1A1A1A] rounded p-2.5 bg-[#070707] space-y-2">
-                    <div className="flex justify-between border-b border-[#151515] pb-1 font-bold text-white">
-                      <span>AUDIT METHOD</span>
-                      <span>USER BENEFIT</span>
+                      <div className="h-[8px] bg-[#1A1A1A] border border-[#333]">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: bar === 'w-full' ? '100%' : bar === 'w-[95%]' ? '95%' : '90%' }}
+                          transition={{ duration: 1, delay: 0.3 }}
+                          className="h-full bg-[#FFFFFF]"
+                        />
+                      </div>
                     </div>
-                    <div className="flex justify-between text-[#888888]">
-                      <span>Manual Exploratory Checks</span>
-                      <span>Catches visual & logic anomalies</span>
-                    </div>
-                    <div className="flex justify-between text-[#888888]">
-                      <span>Boundary Edge-Cases</span>
-                      <span>Blocks critical data breakdowns</span>
-                    </div>
-                    <div className="flex justify-between text-[#888888]">
-                      <span>User Flow Auditing</span>
-                      <span>Assures smooth checkout & signup</span>
-                    </div>
-                  </div>
-                  <p className="text-[10px] text-[#555555] leading-relaxed">
-                    Automated frameworks check logs; manual verification checks reality. I act as the bridge between requirements and actual human usage.
-                  </p>
-                </div>
+                  ))}
+                </motion.div>
               )}
             </div>
           </div>
-
-          {/* Floating ID Card Overlay */}
-          <div className="animate-float absolute -bottom-8 -right-4 md:-right-8 w-[190px] rounded-xl border border-[#333333] bg-[#0D0D0D]/95 p-3.5 shadow-2xl backdrop-blur-md transition-all duration-300 hover:border-[#666666] z-30">
-            {/* Barcode top design */}
-            <div className="flex justify-between items-center text-[8px] font-mono text-[#555555] mb-2 border-b border-[#1A1A1A] pb-1.5">
-              <span>LOC_ID // PH_NE</span>
-              <span className="text-white font-bold">QA PASS</span>
-            </div>
-            
-            {/* Portrait Image container */}
-            <div className="relative aspect-square w-full overflow-hidden rounded bg-[#151515] border border-[#222222]">
-              <Image
-                src="/images/profile/3D avatar.png"
-                alt="John Mark Tactacan profile photo"
-                fill
-                priority
-                sizes="180px"
-                className="object-cover grayscale contrast-125 transition-all duration-700 hover:scale-105"
-              />
-            </div>
-
-            {/* Profile info details */}
-            <div className="mt-2.5 space-y-0.5">
-              <div className="font-mono text-[9px] text-[#555555] uppercase tracking-wider">SPECIALIST ID</div>
-              <div className="font-sans font-bold text-[13px] text-[#FFFFFF] leading-tight">J. M. Tactacan</div>
-              <div className="font-mono text-[10px] text-[#888888] flex items-center gap-1.5">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#FFFFFF]" />
-                {currentRole}
-              </div>
-            </div>
-
-            {/* Graphic barcode container */}
-            <div className="mt-3 flex items-center justify-between border-t border-[#1A1A1A] pt-2">
-              <div className="flex items-center gap-[1.5px] h-4 opacity-40">
-                <div className="w-[1px] bg-white h-full" />
-                <div className="w-[2px] bg-white h-full" />
-                <div className="w-[1px] bg-white h-full" />
-                <div className="w-[3px] bg-white h-full" />
-                <div className="w-[1px] bg-white h-full" />
-                <div className="w-[2px] bg-white h-full" />
-                <div className="w-[4px] bg-white h-full" />
-                <div className="w-[1px] bg-white h-full" />
-                <div className="w-[1px] bg-white h-full" />
-                <div className="w-[3px] bg-white h-full" />
-              </div>
-              <span className="font-mono text-[8px] text-[#444444]">SYS_OK_993A</span>
-            </div>
-          </div>
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

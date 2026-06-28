@@ -49,8 +49,7 @@ export default function ProjectArticlePage({ params }: PageProps) {
 
           <header className="mb-12">
             <motion.h1 
-              className="text-4xl md:text-6xl font-bold text-[#FFFFFF] mb-6"
-              style={{ fontFamily: 'Inter' }}
+              className="text-4xl md:text-6xl font-pixel text-[#FFFFFF] mb-6 tracking-wider leading-relaxed"
             >
               {project.title}
             </motion.h1>
@@ -87,7 +86,7 @@ export default function ProjectArticlePage({ params }: PageProps) {
                 </p>
                 
                 <div className="mt-12 p-8 bg-[#0A0A0A] border border-[#333333] rounded-xl">
-                  <h3 className="text-xl font-bold text-[#FFFFFF] mb-4" style={{ fontFamily: 'Inter' }}>
+                  <h3 className="font-pixel text-[15px] text-[#FFFFFF] mb-4 tracking-wider">
                     Project Overview
                   </h3>
                   <p className="text-[#B0B0B0] leading-relaxed">
