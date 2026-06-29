@@ -1,10 +1,12 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
-import { motion, AnimatePresence } from 'framer-motion';
 import Container from '@/app/components/Container';
+import HeroHeader from '@/app/components/ui/HeroHeader';
+import SectionLabel from '@/app/components/ui/SectionLabel';
 import Link from 'next/link';
 import Image from 'next/image';
 import { projects } from '@/app/data/project';
@@ -16,41 +18,39 @@ export default function ProjectsPage() {
   return (
     <main className="min-h-screen bg-[#000000]">
       <Navbar />
-      <Container className="py-20">
-        <header className="mb-16">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="text-4xl md:text-6xl font-pixel text-[#FFFFFF] mb-4 tracking-wider"
-          >
-            [ PROJECTS ]
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-            className="font-terminal text-[20px] text-[#B0B0B0] max-w-2xl"
-          >
-            A collection of work spanning full-stack development, QA specialization, and data validation.
-          </motion.p>
-        </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence>
+      <HeroHeader
+        badge="PORTFOLIO_LOG"
+        title="[ PROJECTS ]"
+        description="A collection of work spanning full-stack development, QA specialization, and data validation."
+      />
+
+      {/* ════════════ PROJECTS ════════════ */}
+      <section className="py-20 lg:py-28 bg-[#000000]">
+        <Container>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <SectionLabel number="01" label="SHOWCASE" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {displayedProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ y: -8 }}
                 className="bg-[#1A1A1A] border-[3px] border-[#333] overflow-hidden flex flex-col group transition-colors hover:border-[#808080]"
               >
                 <div className="relative h-48 w-full bg-[#1A1A1A] overflow-hidden">
-                  <Image 
-                    src={project.image} 
+                  <Image
+                    src={project.image}
                     alt={project.title}
                     fill
                     className="object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
@@ -70,7 +70,7 @@ export default function ProjectsPage() {
                       </span>
                     ))}
                   </div>
-                  <Link 
+                  <Link
                     href={`/projects/articles/${project.id}`}
                     className="inline-flex items-center gap-2 font-pixel text-[10px] text-[#FFFFFF] mt-auto group/link tracking-wider hover:text-[#808080] transition-colors"
                   >
@@ -85,31 +85,32 @@ export default function ProjectsPage() {
                 </div>
               </motion.div>
             ))}
-          </AnimatePresence>
-        </div>
+          </div>
 
-        {!showAll && projects.length > 3 && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-center mt-12"
-          >
-            <button
-              onClick={() => setShowAll(true)}
-              className="inline-flex items-center gap-2 font-pixel text-[11px] text-[#FFFFFF] bg-[#1A1A1A] border-[3px] border-[#333] px-8 py-4 hover:border-[#808080] hover:bg-[#222] transition-all cursor-pointer"
+          {!showAll && projects.length > 3 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-center mt-12"
             >
-              [ SEE ALL PROJECTS ]
-              <motion.span
-                animate={{ y: [0, 4, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
+              <button
+                onClick={() => setShowAll(true)}
+                className="inline-flex items-center gap-2 font-pixel text-[11px] text-[#FFFFFF] bg-[#1A1A1A] border-[3px] border-[#333] px-8 py-4 hover:border-[#808080] hover:bg-[#222] transition-all cursor-pointer"
               >
-                ↓
-              </motion.span>
-            </button>
-          </motion.div>
-        )}
-      </Container>
+                [ SEE ALL PROJECTS ]
+                <motion.span
+                  animate={{ y: [0, 4, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                >
+                  ↓
+                </motion.span>
+              </button>
+            </motion.div>
+          )}
+        </Container>
+      </section>
+
       <Footer />
     </main>
   );

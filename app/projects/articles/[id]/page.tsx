@@ -104,6 +104,7 @@ export default function ProjectArticlePage({ params }: PageProps) {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="sticky top-24 p-6 bg-[#1A1A1A] border border-[#333333] rounded-xl"
               >
+               
                 <h4 className="text-sm font-bold text-[#FFFFFF] uppercase tracking-widest mb-4">
                   Project Details
                 </h4>

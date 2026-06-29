@@ -1,18 +1,15 @@
-import type { Metadata } from 'next';
-import Link from 'next/link'; // 1. Import Next.js Link
+'use client';
 
+import React from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import Container from '@/app/components/Container';
-import SectionTitle from '@/app/components/ui/SectionTittle';
-import Card from '@/app/components/ui/Card';
+import HeroHeader from '@/app/components/ui/HeroHeader';
+import SectionLabel from '@/app/components/ui/SectionLabel';
 import Badge from '@/app/components/ui/Badge';
-import Button from '@/app/components/ui/Button'; // 2. Import your Button component
-
-export const metadata: Metadata = {
-  title: 'About - John Mark Tactacan',
-  description: 'About John Mark Tactacan, QA Specialist based in Nueva Ecija, Philippines.',
-};
+import Button from '@/app/components/ui/Button';
 
 const coreCompetencies = [
   'Manual Testing',
@@ -30,22 +27,36 @@ export default function AboutPage() {
     <main className="min-h-screen bg-[#000000]">
       <Navbar />
 
-      <section className="py-20 bg-[#000000] border-b border-[#333333]">
-        <Container>
-          <SectionTitle
-            title="About"
-            subtitle="Detail-oriented IT graduate transitioning into a QA role"
-            centered
-          />
+      <HeroHeader
+        badge="IDENTITY_RECORD"
+        title="[ ABOUT ]"
+        description="Detail-oriented IT graduate transitioning into a QA role — with hands-on experience in full-stack development, manual testing, and data validation."
+      />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
-            <Card hover={false}>
-              <h3
-                className="font-pixel text-[15px] text-[#FFFFFF] mb-4 tracking-wider"
-              >
+      {/* ════════════ PROFILE ════════════ */}
+      <section className="py-20 lg:py-28 bg-[#000000]">
+        <Container>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <SectionLabel number="01" label="PROFILE" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="border-[3px] border-[#333] bg-[#1A1A1A] p-6 lg:p-8"
+            >
+              <h3 className="font-pixel text-[13px] text-[#FFFFFF] mb-4 tracking-wider leading-relaxed">
                 John Mark Tactacan
               </h3>
-              <p className="font-terminal text-[20px] text-[#B0B0B0] leading-relaxed">
+              <p className="font-terminal text-[18px] text-[#B0B0B0] leading-relaxed">
                 Detail-oriented IT graduate with hands-on experience in full-stack development,
                 manual testing, data validation, and bug resolution across multiple projects.
                 Experienced in requirement analysis, process documentation, and progress reporting
@@ -54,24 +65,29 @@ export default function AboutPage() {
                 collaborative environment.
               </p>
 
-              <div className="mt-6 font-terminal text-[20px] text-[#B0B0B0]">
-                <div className="font-pixel text-[11px] text-[#FFFFFF]">Location</div>
+              <div className="mt-6 font-terminal text-[18px] text-[#B0B0B0]">
+                <div className="font-pixel text-[10px] text-[#FFFFFF] tracking-wider mb-1">LOCATION</div>
                 <div>Carranglan, Nueva Ecija, Philippines</div>
               </div>
 
-              {/* 3. Added the Link and Button here under your location */}
-                <div className="mt-8">
-                 <Link href="/playground" passHref>
-                    <Button>Go to Playground</Button>
+              <div className="mt-6">
+                <Link href="/playground">
+                  <Button variant="outline" size="sm" className="font-pixel text-[9px]">
+                    [ VISIT PLAYGROUND ]
+                  </Button>
                 </Link>
-                </div>
-            </Card>
+              </div>
+            </motion.div>
 
-            <Card hover={false}>
-              <h3
-                className="font-pixel text-[13px] text-[#FFFFFF] mb-4 tracking-wider"
-              >
-                Core Competencies
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="border-[3px] border-[#333] bg-[#1A1A1A] p-6 lg:p-8"
+            >
+              <h3 className="font-pixel text-[13px] text-[#FFFFFF] mb-4 tracking-wider">
+                CORE COMPETENCIES
               </h3>
               <div className="flex flex-wrap gap-2">
                 {coreCompetencies.map((item) => (
@@ -80,40 +96,68 @@ export default function AboutPage() {
                   </Badge>
                 ))}
               </div>
-            </Card>
+            </motion.div>
+          </div>
+        </Container>
+      </section>
 
-            <Card hover={false}>
-              <h3
-                className="font-pixel text-[13px] text-[#FFFFFF] mb-2 tracking-wider"
-              >
-                Education
+      {/* ════════════ EDUCATION & CERTS ════════════ */}
+      <section className="py-20 lg:py-28 border-t-[3px] border-[#1A1A1A] bg-[#000000]">
+        <Container>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <SectionLabel number="02" label="EDUCATION & CERTIFICATIONS" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="border-[3px] border-[#333] bg-[#1A1A1A] p-6 lg:p-8"
+            >
+              <h3 className="font-pixel text-[13px] text-[#FFFFFF] mb-4 tracking-wider">
+                EDUCATION
               </h3>
-              <div className="font-terminal text-[20px] text-[#B0B0B0]">
-                <div className="text-[#FFFFFF] font-terminal text-[22px]">
-                  Bachelor of Science in Information Technology (Major in Systems Development)
+              <div className="font-terminal text-[18px] text-[#B0B0B0]">
+                <div className="text-[#FFFFFF] font-terminal text-[20px] leading-relaxed">
+                  Bachelor of Science in Information Technology
                 </div>
-                <div>Central Luzon State University</div>
-                <div className="mt-2">08/2021 – 01/2026</div>
+                <div className="text-[#B0B0B0]">Major in Systems Development</div>
+                <div className="mt-3">Central Luzon State University</div>
+                <div className="mt-1">08/2021 – 01/2026</div>
                 <div className="mb-4">Science City of Muñoz, Nueva Ecija, Philippines</div>
-                
-                <Link href="/journal" passHref>
-                  <Button variant="outline" size="sm" className="w-full border-[#333333] hover:border-white text-white mt-2 cursor-pointer">
-                    View Chronological Journal Timeline →
+
+                <Link href="/journal">
+                  <Button variant="outline" size="sm" className="font-pixel text-[9px] w-full">
+                    [ VIEW CHRONOLOGICAL JOURNAL ]
                   </Button>
                 </Link>
               </div>
-            </Card>
+            </motion.div>
 
-            <Card hover={false}>
-              <h3
-                className="font-pixel text-[13px] text-[#FFFFFF] mb-2 tracking-wider"
-              >
-                Licenses & Certifications
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="border-[3px] border-[#333] bg-[#1A1A1A] p-6 lg:p-8"
+            >
+              <h3 className="font-pixel text-[13px] text-[#FFFFFF] mb-4 tracking-wider">
+                LICENSES & CERTIFICATIONS
               </h3>
-              <div className="font-terminal text-[20px] text-[#B0B0B0]">
-                <div className="text-[#FFFFFF] font-terminal text-[22px]">AWS Academy Cloud Foundations</div>
+              <div className="font-terminal text-[18px] text-[#B0B0B0]">
+                <div className="text-[#FFFFFF] font-terminal text-[20px] leading-relaxed">
+                  AWS Academy Cloud Foundations
+                </div>
+                <div className="mt-1 text-[#808080]">Amazon Web Services</div>
               </div>
-            </Card>
+            </motion.div>
           </div>
         </Container>
       </section>

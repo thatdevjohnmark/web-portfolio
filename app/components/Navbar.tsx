@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 
@@ -15,7 +15,6 @@ export default function Navbar() {
     { label: 'About', href: '/about' },
     { label: 'Projects', href: '/projects' },
     { label: 'Experience', href: '/experience' },
-    { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' }
   ];
 
@@ -48,27 +47,7 @@ export default function Navbar() {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-stretch">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="relative flex items-center justify-center w-[110px] font-pixel text-[10px] tracking-wider text-[#B0B0B0] hover:text-[#FFFFFF] transition-colors duration-150"
-                >
-                  {link.label}
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-underline"
-                      className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#FFFFFF]"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
-          </div>
+          <FluidNav links={navLinks} />
 
           {/* Mobile Menu Button */}
           <motion.button
@@ -95,7 +74,7 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         <AnimatePresence>
           {isOpen && (
-            <motion.div 
+            <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -123,5 +102,71 @@ export default function Navbar() {
         </AnimatePresence>
       </div>
     </nav>
+  );
+}
+
+// ── FluidNav: morphing underline that stretches toward the target tab ──────────
+
+const TAB_W = 110; // px — must match the link width
+
+function FluidNav({ links }: { links: { label: string; href: string }[] }) {
+  const pathname = usePathname();
+  const activeIndex = links.findIndex((l) => l.href === pathname);
+  const prevIndexRef = useRef(activeIndex);
+  const distance = Math.abs(activeIndex - prevIndexRef.current);
+
+  useEffect(() => {
+    prevIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  // Bar briefly stretches proportional to jump distance, then snaps back
+  const bulgeWidth = TAB_W + distance * 28;
+
+  // Keyframes: start at normal width → bulge toward target → settle
+  const widthAnim =
+    distance > 0 ? [TAB_W, bulgeWidth, TAB_W] : TAB_W;
+
+  return (
+    <div className="hidden md:flex items-stretch relative">
+      {links.map((link) => {
+        const isActive = link.href === pathname;
+        return (
+          <Link
+            key={link.href}
+            href={link.href}
+            className={`flex items-center justify-center font-pixel text-[10px] tracking-wider transition-colors duration-150 ${
+              isActive
+                ? 'text-[#FFFFFF]'
+                : 'text-[#B0B0B0] hover:text-[#FFFFFF]'
+            }`}
+            style={{ width: TAB_W }}
+          >
+            {link.label}
+          </Link>
+        );
+      })}
+
+      <motion.div
+        className="absolute bottom-0 h-[3px] bg-[#FFFFFF] rounded-full"
+        animate={{
+          left: activeIndex * TAB_W,
+          width: widthAnim,
+        }}
+        initial={false}
+        transition={{
+          left: {
+            type: 'spring',
+            stiffness: 160,
+            damping: 23,
+            mass: 0.35,
+          },
+          width: {
+            duration: 0.5,
+            times: [0, 0.3, 1],
+            ease: 'easeInOut',
+          },
+        }}
+      />
+    </div>
   );
 }

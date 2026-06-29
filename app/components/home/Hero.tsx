@@ -6,6 +6,11 @@ import Button from '../ui/Button';
 import Container from '../Container';
 import Link from 'next/link';
 
+// Module-level constants (stable, not recreated on every render)
+const fullTitle = 'thatdevjohnmark';
+
+const roles = ['QA_SPECIALIST', 'PROGRAMMER', 'FULLSTACK_DEV', 'MANUAL_TESTER'];
+
 const logLines = [
   '> INIT.SYS v2.0.1',
   '> Loading QA integrity kernel...',
@@ -43,13 +48,30 @@ const specsLines = [
   '================================',
 ];
 
+const statsData = [
+  { label: 'TEST CASES', val: '100%', pct: 100 },
+  { label: 'BUG DETECT', val: '95%', pct: 95 },
+  { label: 'DOCS', val: '100%', pct: 100 },
+  { label: 'DEPLOY', val: 'READY', pct: 90 },
+];
+
+const metricsData = [
+  { label: 'MANUAL', value: '100%', sub: 'COVERAGE' },
+  { label: 'BUG REPRO', value: 'FULL', sub: 'VERIFIED' },
+  { label: 'AUDIT', value: 'ZERO', sub: 'AMBIGUITY' },
+];
+
+const ROLES_PERIOD = 8;  // frames per role (8 × 150ms = 1200ms)
+
 export default function Hero() {
   const [activeTab, setActiveTab] = useState<'specs' | 'logs' | 'stats'>('specs');
   const [visibleLogs, setVisibleLogs] = useState<string[]>([]);
   const [logIndex, setLogIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
-  const fullTitle = 'thatdevjohnmark';
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const logsContainerRef = useRef<HTMLDivElement>(null);
+  const roleFrameRef = useRef(0);
+  const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Typewriter effect for name
   useEffect(() => {
@@ -65,54 +87,69 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  // Cycle logs
+  // Role cycling — uses ref for frame counter to avoid re-renders on every tick
   useEffect(() => {
-    if (activeTab !== 'logs') return;
+    const interval = setInterval(() => {
+      roleFrameRef.current += 1;
+      if (roleFrameRef.current % ROLES_PERIOD === 0) {
+        setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+      }
+    }, 150);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Cycle logs — with proper cleanup of both timeout and resetTimeout
+  useEffect(() => {
+    // Clear any pending reset timeout when leaving the logs tab
+    if (activeTab !== 'logs') {
+      if (resetTimeoutRef.current) {
+        clearTimeout(resetTimeoutRef.current);
+        resetTimeoutRef.current = undefined;
+      }
+      return;
+    }
+
+    // Initialize
     if (logIndex === 0) {
       setVisibleLogs([logLines[0]]);
       setLogIndex(1);
       return;
     }
+
+    // Reset complete — wait before restarting
+    if (logIndex >= logLines.length) {
+      resetTimeoutRef.current = setTimeout(() => setLogIndex(0), 3000);
+      return () => {
+        if (resetTimeoutRef.current) {
+          clearTimeout(resetTimeoutRef.current);
+          resetTimeoutRef.current = undefined;
+        }
+      };
+    }
+
+    // Show next log line
     const timeout = setTimeout(() => {
-      if (logIndex < logLines.length) {
-        setVisibleLogs((prev) => [...prev, logLines[logIndex]]);
-        setLogIndex((prev) => prev + 1);
-      } else {
-        const resetTimeout = setTimeout(() => setLogIndex(0), 3000);
-        return () => clearTimeout(resetTimeout);
-      }
+      setVisibleLogs((prev) => [...prev, logLines[logIndex]]);
+      setLogIndex((prev) => prev + 1);
     }, 500);
-    return () => clearTimeout(timeout);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [logIndex, activeTab]);
 
+  // Auto-scroll logs (merged into single effect via ref)
   useEffect(() => {
     if (activeTab === 'logs' && logsContainerRef.current) {
       logsContainerRef.current.scrollTop = logsContainerRef.current.scrollHeight;
     }
   }, [visibleLogs, activeTab]);
 
-  const roles = ['QA_SPECIALIST', 'PROGRAMMER', 'FULLSTACK_DEV', 'MANUAL_TESTER'];
-  const [currentRole, setCurrentRole] = useState(roles[0]);
-  const [roleFrame, setRoleFrame] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRoleFrame((prev) => {
-        const next = (prev + 1) % (roles.length * 8);
-        if (next % 8 === 0) {
-          setCurrentRole(roles[next / 8]);
-        }
-        return next;
-      });
-    }, 150);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section className="relative overflow-hidden border-b-[3px] border-[#1A1A1A] bg-[#000000] py-16 lg:py-24">
       {/* Pixel Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1A1A1A_1px,transparent_1px),linear-gradient(to_bottom,#1A1A1A_1px,transparent_1px)] bg-[size:16px_16px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none" />
-      
+
       {/* Glowing orbs */}
       <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-[#FFFFFF]/[0.02] blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-[#808080]/[0.03] blur-[80px] pointer-events-none" />
@@ -131,7 +168,7 @@ export default function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-none bg-white opacity-50" />
               <span className="relative inline-flex h-3 w-3 bg-white" />
             </span>
-            <span className="font-pixel text-[8px] text-[#B0B0B0] tracking-[0.15em]">
+            <span className="font-pixel text-[9px] text-[#B0B0B0] tracking-[0.15em]">
               SYS:ACTIVE
             </span>
           </motion.div>
@@ -171,7 +208,7 @@ export default function Hero() {
           >
             <span className="font-pixel text-[10px] text-[#666] tracking-wider">ROLE: </span>
             <span className="font-pixel text-[10px] text-[#FFFFFF] tracking-wider glitch-hover">
-              {currentRole}
+              {roles[currentRoleIndex]}
             </span>
           </motion.div>
 
@@ -182,7 +219,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="max-w-xl font-terminal text-[18px] md:text-[22px] text-[#B0B0B0] leading-relaxed"
           >
-            Exploratory testing protocols, rigorous UI/UX audits, and bulletproof bug verification. 
+            Exploratory testing protocols, rigorous UI/UX audits, and bulletproof bug verification.
             I break systems systematically to ensure they hold strong in production.
           </motion.p>
 
@@ -212,18 +249,14 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="grid grid-cols-3 gap-3 max-w-lg pt-4"
           >
-            {[
-              { label: 'MANUAL', value: '100%', sub: 'COVERAGE' },
-              { label: 'BUG REPRO', value: 'FULL', sub: 'VERIFIED' },
-              { label: 'AUDIT', value: 'ZERO', sub: 'AMBIGUITY' },
-            ].map(({ label, value, sub }) => (
+            {metricsData.map(({ label, value, sub }) => (
               <div
                 key={label}
                 className="border-[2px] border-[#333] bg-[#0A0A0A] p-3 text-center hover:border-[#808080] transition-colors duration-150"
               >
-                <div className="font-pixel text-[7px] text-[#666] tracking-wider mb-1">{label}</div>
+                <div className="font-pixel text-[8px] text-[#666] tracking-wider mb-1">{label}</div>
                 <div className="font-pixel text-[14px] text-[#FFFFFF]">{value}</div>
-                <div className="font-pixel text-[6px] text-[#555] tracking-wider mt-1">{sub}</div>
+                <div className="font-pixel text-[7px] text-[#555] tracking-wider mt-1">{sub}</div>
               </div>
             ))}
           </motion.div>
@@ -237,7 +270,7 @@ export default function Hero() {
           className="relative"
         >
           <div className="absolute -inset-1 bg-white/[0.02] blur-xl pointer-events-none" />
-          
+
           <div className="relative border-[3px] border-[#333] bg-[#0A0A0A] overflow-hidden">
             {/* Terminal header */}
             <div className="flex items-center justify-between border-b-[2px] border-[#333] bg-[#050505] px-4 py-2">
@@ -246,7 +279,7 @@ export default function Hero() {
                 <div className="w-3 h-3 border-[2px] border-[#555] bg-[#222]" />
                 <div className="w-3 h-3 border-[2px] border-[#555] bg-[#444]" />
               </div>
-              <span className="font-pixel text-[7px] text-[#555] tracking-[0.2em]">
+              <span className="font-pixel text-[8px] text-[#555] tracking-[0.2em]">
                 TERMINAL_V1.0
               </span>
               <div className="w-10" />
@@ -265,7 +298,7 @@ export default function Hero() {
                     setActiveTab(key);
                     if (key === 'logs') setLogIndex(0);
                   }}
-                  className={`px-4 py-2 font-pixel text-[9px] tracking-wider cursor-pointer transition-colors duration-150 border-r-[2px] border-[#333] ${
+                  className={`px-4 py-2 font-pixel text-[10px] tracking-wider cursor-pointer transition-colors duration-150 border-r-[2px] border-[#333] ${
                     activeTab === key
                       ? 'bg-[#0A0A0A] text-[#FFFFFF]'
                       : 'text-[#666] hover:text-[#B0B0B0] hover:bg-[#080808]'
@@ -278,7 +311,7 @@ export default function Hero() {
 
             {/* Terminal content */}
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0A0A0A] p-4">
-              {/* Scanline */}
+              {/* Scanline overlay — scoped to terminal only */}
               <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.05)_2px,rgba(0,0,0,0.05)_4px)] pointer-events-none z-10" />
 
               {/* SPECS tab */}
@@ -332,12 +365,7 @@ export default function Hero() {
                   animate={{ opacity: 1 }}
                   className="h-full font-terminal text-[16px] space-y-4"
                 >
-                  {[
-                    { label: 'TEST CASES', val: '100%', bar: 'w-full' },
-                    { label: 'BUG DETECT', val: '95%', bar: 'w-[95%]' },
-                    { label: 'DOCS', val: '100%', bar: 'w-full' },
-                    { label: 'DEPLOY', val: 'READY', bar: 'w-[90%]' },
-                  ].map(({ label, val, bar }) => (
+                  {statsData.map(({ label, val, pct }) => (
                     <div key={label}>
                       <div className="flex justify-between font-pixel text-[10px] text-[#B0B0B0] mb-1">
                         <span>{label}</span>
@@ -346,7 +374,7 @@ export default function Hero() {
                       <div className="h-[8px] bg-[#1A1A1A] border border-[#333]">
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={{ width: bar === 'w-full' ? '100%' : bar === 'w-[95%]' ? '95%' : '90%' }}
+                          animate={{ width: `${pct}%` }}
                           transition={{ duration: 1, delay: 0.3 }}
                           className="h-full bg-[#FFFFFF]"
                         />

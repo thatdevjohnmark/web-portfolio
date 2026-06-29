@@ -13,7 +13,7 @@ export default function Button({
   children,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'font-pixel tracking-wider cursor-pointer transition-all duration-150 active:translate-y-[2px]';
+  const baseStyles = 'font-pixel tracking-wider cursor-pointer transition-[color,background-color,border-color,box-shadow,transform] duration-150 active:translate-y-[2px]';
 
   const variants = {
     primary: 'bg-[#FFFFFF] text-[#000000] hover:bg-[#E0E0E0] pixel-border-light',

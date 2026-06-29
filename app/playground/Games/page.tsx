@@ -48,7 +48,7 @@ export default function GamesPage() {
           {/* Controls Bar */}
           <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 mb-12">
             <Link href="/playground" passHref>
-              <Button className="border border-[#222222] bg-white hover:bg-[#111111] text-xs font-mono">
+              <Button className="border-[2px] border-[#222222] bg-white hover:bg-[#111111] text-xs font-mono">
                 ← Return to Playground
               </Button>
             </Link>
