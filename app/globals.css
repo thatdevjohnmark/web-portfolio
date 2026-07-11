@@ -32,7 +32,6 @@
   --font-terminal: var(--font-terminal);
   --font-mono: var(--font-mono);
 
-  /* Design tokens — use semantic classes like bg-base, text-primary, border-border */
   --color-base: #000000;
   --color-surface: #1A1A1A;
   --color-surface-dark: #0A0A0A;
@@ -61,12 +60,118 @@ body {
   line-height: 1.5;
 }
 
-/* Scoped pixelated rendering — add .pixelated to actual pixel-art images only */
+/* ============================================
+   PREMIUM CUSTOM SCROLLBAR
+   ============================================ */
+
+/* Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+  border-left: 1px solid #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 0;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+::-webkit-scrollbar-corner {
+  background: #050505;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #333 #050505;
+}
+
+/* ============================================
+   GRAIN OVERLAY UTILITY
+   Apply .grain-overlay to any element for a
+   subtle noise texture over it.
+   ============================================ */
+
+.grain-overlay {
+  position: relative;
+  isolation: isolate;
+}
+
+.grain-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  mix-blend-mode: overlay;
+}
+
+/* ============================================
+   SCAN-LINE UTILITY
+   Apply .scan-lines to add a CRT overlay.
+   ============================================ */
+
+.scan-lines {
+  position: relative;
+  isolation: isolate;
+}
+
+.scan-lines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Animated scan-line sweep (one-shot via JS) */
+.scan-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 100%
+  );
+  transform: scaleY(0);
+  transform-origin: top center;
+  will-change: transform, opacity;
+}
+
+/* ============================================
+   PIXEL RENDERING
+   ============================================ */
+
 .pixelated {
   image-rendering: pixelated;
 }
 
-/* Pixel border utility — use --pixel-border-color to override the default border color */
+/* ============================================
+   PIXEL BORDER UTILITIES
+   ============================================ */
+
 .pixel-border {
   --pixel-border-color: var(--color-border);
   border: var(--pixel-size) solid var(--pixel-border-color);
@@ -83,7 +188,10 @@ body {
     var(--pixel-size) var(--pixel-size) 0 0 var(--color-bg-base);
 }
 
-/* Glitch text effect */
+/* ============================================
+   GLITCH TEXT EFFECT
+   ============================================ */
+
 @keyframes glitch {
   0%, 100% { transform: translate(0); }
   20% { transform: translate(-2px, 1px); }
@@ -96,7 +204,10 @@ body {
   animation: glitch 0.3s ease-in-out;
 }
 
-/* CRT flicker — use will-change to promote to compositor layer */
+/* ============================================
+   CRT FLICKER
+   ============================================ */
+
 @keyframes crt-flicker {
   0%, 100% { opacity: 1; }
   92% { opacity: 1; }
@@ -111,7 +222,10 @@ body {
   will-change: opacity;
 }
 
-/* Selection style */
+/* ============================================
+   SELECTION STYLE
+   ============================================ */
+
 ::selection {
   background: #FFFFFF;
   color: #000000;
