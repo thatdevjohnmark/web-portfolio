@@ -142,6 +142,14 @@ export default function Footer() {
                 GitHub →
               </a>
               <a
+                href="https://linkedin.com/in/johnmarktactacan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors duration-150"
+              >
+                LinkedIn →
+              </a>
+              <a
                 href="mailto:johnmark.tactacan@gmail.com"
                 className="hover:text-white transition-colors duration-150"
               >

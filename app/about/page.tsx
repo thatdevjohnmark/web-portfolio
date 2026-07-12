@@ -234,12 +234,10 @@ export default function AboutPage() {
                 John Mark Tactacan
               </h3>
               <p className="font-terminal text-[18px] text-[#B0B0B0] leading-relaxed">
-                Detail-oriented IT graduate with hands-on experience in full-stack development,
-                manual testing, data validation, and bug resolution across multiple projects.
-                Experienced in requirement analysis, process documentation, and progress reporting
-                to supervisors and stakeholders. Seeking to transition into a QA role by applying
-                strong analytical skills, attention to detail, and practical testing experience in a
-                collaborative environment.
+                I&apos;m based in Carranglan, Nueva Ecija, Philippines. I started building things during college — full-stack apps, pixel-art UIs, and manual testing frameworks. Somewhere along the way I realized I love both sides of the equation: building systems AND systematically breaking them to make sure they hold up.
+              </p>
+              <p className="font-terminal text-[18px] text-[#B0B0B0] leading-relaxed mt-4">
+                Now I&apos;m transitioning into a QA role, bringing hands-on experience in full-stack development, data validation, and production testing. When I&apos;m not testing or coding, I&apos;m usually exploring retro design aesthetics and pixel art.
               </p>
 
               <div className="mt-6 font-terminal text-[18px] text-[#B0B0B0]">

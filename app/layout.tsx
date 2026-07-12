@@ -25,10 +25,20 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
   title: {
-    default: 'thatdevjohnmark',
+    default: 'thatdevjohnmark | QA Specialist & Full-Stack Developer',
     template: '%s | thatdevjohnmark',
   },
-  description: 'Portfolio of John Mark Tactacan, QA Specialist.',
+  description:
+    'Portfolio of John Mark Tactacan — QA specialist and full-stack developer. Manual testing, data validation, Next.js, React, TypeScript. I build and break systems to ship reliable software.',
+  openGraph: {
+    title: 'thatdevjohnmark | QA Specialist & Full-Stack Developer',
+    description:
+      'Manual testing, data validation, and full-stack development with Next.js, React, and TypeScript.',
+    url: 'https://thatdevjohnmark.vercel.app',
+    siteName: 'thatdevjohnmark',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({

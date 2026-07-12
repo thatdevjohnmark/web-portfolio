@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ── data ─────────────────────────────────────────────────────────────────────
 const ALL_SKILLS = skills.flatMap((g) =>
-  g.items.map((item) => ({ item, category: g.category }))
+  g.items.map((item) => ({ item, tier: g.tier }))
 );
 
 // Duplicate for seamless infinite loop (both rows share the same data)
@@ -31,6 +31,31 @@ export default function SkillsSection() {
     const ctx = gsap.context(() => {
       const prefersReduced =
         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // ── marquee band entrance ──────────────────────────────────────────
+      gsap.set([marqueeRef.current, marqueeRevRef.current], { opacity: 0, y: 24 });
+      gsap.to(marqueeRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: marqueeRef.current,
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+        },
+      });
+      gsap.to(marqueeRevRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: marqueeRevRef.current,
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+        },
+      });
 
       // ── heading reveal ───────────────────────────────────────────────────
       gsap.from(headingRef.current, {
@@ -303,7 +328,7 @@ export default function SkillsSection() {
         >
           {skills.map((group) => (
             <div
-              key={group.category}
+              key={group.tier}
               className="
                 group
                 bg-[#0D0D0D] p-8
@@ -328,7 +353,7 @@ export default function SkillsSection() {
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-[3px] h-5 bg-white/60 shrink-0" />
                 <h3 className="font-pixel text-[13px] text-[#FFFFFF] tracking-wider">
-                  {group.category.toUpperCase()}
+                  {group.tier.toUpperCase()}
                 </h3>
               </div>
 

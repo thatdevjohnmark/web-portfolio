@@ -1,18 +1,14 @@
 export const skills = [
   {
-    category: "QA & Testing",
-    items: ["Manual Testing", "Bug Identification", "Regression Testing", "Data Validation", "Requirement Analysis", "Process Documentation"]
+    tier: "Expert",
+    items: ["Manual Testing", "Bug Identification", "Regression Testing", "Data Validation", "Requirement Analysis", "Process Documentation", "Attention to Detail", "Analytical Thinking"]
   },
   {
-    category: "Development",
-    items: ["JavaScript", "TypeScript", "React", "Next.js", "Node.js"]
+    tier: "Strong",
+    items: ["JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Progress Reporting", "Stakeholder Communication", "Team Collaboration"]
   },
   {
-    category: "Tools",
+    tier: "Familiar",
     items: ["Git", "VS Code", "Figma", "AWS Academy (Foundations)"]
-  },
-  {
-    category: "Soft Skills",
-    items: ["Attention to Detail", "Analytical Thinking", "Progress Reporting", "Stakeholder Communication", "Team Collaboration"]
   }
 ];
