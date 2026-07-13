@@ -137,7 +137,7 @@ function ProjectRow({
       {/* inner content (slides on hover) */}
       <div
         ref={innerRef}
-        className="relative z-10 flex flex-col sm:flex-row sm:items-start gap-6 sm:gap-10"
+        className="relative z-10 flex flex-col sm:flex-row sm:items-start gap-6 sm:gap-10 row-inner-content"
         style={{ willChange: 'transform' }}
       >
         {/* oversized index number */}
@@ -265,6 +265,22 @@ export default function ProjectsShowcase() {
           toggleActions: 'play none none none',
         },
       });
+      // ── row inner content parallax: shift at slow scroll speed ──────
+      const rowInners = sectionRef.current?.querySelectorAll('.row-inner-content');
+      if (rowInners && rowInners.length > 0) {
+        rowInners.forEach((el) => {
+          gsap.to(el, {
+            y: 40,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: el.closest('.border-b'),
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.5,
+            },
+          });
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();

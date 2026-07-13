@@ -80,7 +80,7 @@ function JournalEntry({
       />
 
       <div className="font-pixel text-[8px] tracking-wider text-[#B0B0B0] border-[2px] border-[#333] bg-[#0A0A0A] px-3 py-1 inline-block mb-4">
-        {entry.date} // {entry.type.toUpperCase()}
+        {entry.date}{' // '}{entry.type.toUpperCase()}
       </div>
 
       <div className="border-[3px] border-[#333] bg-[#1A1A1A] p-6 lg:p-8 hover:border-[#555] transition-colors duration-200">

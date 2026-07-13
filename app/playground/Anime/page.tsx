@@ -27,11 +27,13 @@ interface AnimeItem {
 }
 
 // Extract raw data from Next.js module bundle layer safely
-const rawData = (animeData as any)?.default || animeData;
+const rawData = (animeData as { default?: unknown } | unknown)
+  ? ((animeData as { default?: unknown }).default ?? animeData)
+  : animeData;
 const rawArray: IncomingAnimeItem[] = rawData && typeof rawData === 'object' && 'anime' in rawData
-  ? (rawData.anime as IncomingAnimeItem[])
+  ? ((rawData as { anime: IncomingAnimeItem[] }).anime)
   : Array.isArray(rawData)
-  ? rawData
+  ? (rawData as IncomingAnimeItem[])
   : [];
 
 // Map to your UI schema structure

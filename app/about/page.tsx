@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -8,7 +8,6 @@ import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import Container from '@/app/components/Container';
 import HeroHeader from '@/app/components/ui/HeroHeader';
-import SectionLabel from '@/app/components/ui/SectionLabel';
 import Badge from '@/app/components/ui/Badge';
 import Button from '@/app/components/ui/Button';
 

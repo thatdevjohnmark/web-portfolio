@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Press_Start_2P, VT323, Fira_Code } from "next/font/google";
 import "./globals.css";
+import CursorProvider from "./components/CursorProvider";
 
 const pressStart2P = Press_Start_2P({
   weight: "400",
@@ -51,7 +52,10 @@ export default function RootLayout({
       lang="en"
       className={`${pressStart2P.variable} ${vt323.variable} ${firaCode.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <CursorProvider />
+        {children}
+      </body>
     </html>
   );
 }

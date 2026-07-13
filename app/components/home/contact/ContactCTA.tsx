@@ -66,6 +66,41 @@ export default function ContactCTA() {
   const subRef      = useRef<HTMLParagraphElement>(null);
   const btnRef      = useRef<HTMLDivElement>(null);
   const emailRef    = useRef<HTMLParagraphElement>(null);
+  const tlCorner    = useRef<HTMLDivElement>(null);
+  const trCorner    = useRef<HTMLDivElement>(null);
+  const blCorner    = useRef<HTMLDivElement>(null);
+  const brCorner    = useRef<HTMLDivElement>(null);
+
+  // ── corner parallax on mouse move ──────────────────────────────────────
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const corners = [
+      { ref: tlCorner.current, ox: -1, oy: -1 },
+      { ref: trCorner.current, ox: 1, oy: -1 },
+      { ref: blCorner.current, ox: -1, oy: 1 },
+      { ref: brCorner.current, ox: 1, oy: 1 },
+    ].filter((c) => c.ref);
+
+    const handleMouse = (e: MouseEvent) => {
+      const rect = section.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      corners.forEach(({ ref, ox, oy }) => {
+        gsap.to(ref, {
+          x: (e.clientX - cx) * ox * 0.15,
+          y: (e.clientY - cy) * oy * 0.15,
+          duration: 0.8,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
+      });
+    };
+
+    section.addEventListener('mousemove', handleMouse);
+    return () => section.removeEventListener('mousemove', handleMouse);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -180,10 +215,10 @@ export default function ContactCTA() {
       />
 
       {/* ── corner accents ── */}
-      <div className="absolute top-8 left-8 w-16 h-16 border-t-[2px] border-l-[2px] border-[#333] pointer-events-none" />
-      <div className="absolute top-8 right-8 w-16 h-16 border-t-[2px] border-r-[2px] border-[#333] pointer-events-none" />
-      <div className="absolute bottom-8 left-8 w-16 h-16 border-b-[2px] border-l-[2px] border-[#333] pointer-events-none" />
-      <div className="absolute bottom-8 right-8 w-16 h-16 border-b-[2px] border-r-[2px] border-[#333] pointer-events-none" />
+      <div ref={tlCorner} className="absolute top-8 left-8 w-16 h-16 border-t-[2px] border-l-[2px] border-[#333] pointer-events-none" style={{ willChange: 'transform' }} />
+      <div ref={trCorner} className="absolute top-8 right-8 w-16 h-16 border-t-[2px] border-r-[2px] border-[#333] pointer-events-none" style={{ willChange: 'transform' }} />
+      <div ref={blCorner} className="absolute bottom-8 left-8 w-16 h-16 border-b-[2px] border-l-[2px] border-[#333] pointer-events-none" style={{ willChange: 'transform' }} />
+      <div ref={brCorner} className="absolute bottom-8 right-8 w-16 h-16 border-b-[2px] border-r-[2px] border-[#333] pointer-events-none" style={{ willChange: 'transform' }} />
 
       {/* ── scan-line wipe element ── */}
       <div
