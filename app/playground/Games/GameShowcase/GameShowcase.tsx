@@ -1,101 +1,37 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useState, useRef, useEffect } from 'react';
 import { GAMES, GameEntry } from './GameData';
 import GameCard from './GameCard';
 import BackgroundLayer from './BackgroundLayer';
 import { animateCardsIn } from './animations/cardReveal';
 import { useResponsive } from './hooks/useResponsive';
 
-gsap.registerPlugin(ScrollTrigger);
+const GAP_PX = 12;
 
-const ACTIVE_PCT = 52;   // % of row the active card claims
-const GAP_PX = 12;       // gap between cards in px (gap-3)
-const CARD_COUNT = GAMES.length;
-
-/**
- * Distribute widths so they always sum to exactly 100%.
- *
- * Strategy:
- *   1. Give the active card ACTIVE_PCT%.
- *   2. Split the remaining (100 - ACTIVE_PCT)% among inactive cards weighted
- *      by inverse distance — adjacent cards get more, far cards get less.
- *   3. If no card is active every card gets an equal share.
- */
-function computeWidths(activeIndex: number | null): number[] {
-  if (activeIndex === null) {
-    const equal = 100 / CARD_COUNT;
-    return GAMES.map(() => equal);
-  }
-
-  const remaining = 100 - ACTIVE_PCT;
-  // Weight: 1 / (distance + 1)  — adjacent = 0.5, dist-2 = 0.33, etc.
-  const weights = GAMES.map((_, i) => {
-    if (i === activeIndex) return 0;
-    const d = Math.abs(i - activeIndex);
-    return 1 / (d + 1);
-  });
-  const totalWeight = weights.reduce((s, w) => s + w, 0);
-
-  return GAMES.map((_, i) => {
-    if (i === activeIndex) return ACTIVE_PCT;
-    return (weights[i] / totalWeight) * remaining;
-  });
+// ponytail: hardcoded grid spans for 11 items, 4-col grid
+function gridSpan(i: number): string {
+  const spans: Record<number, string> = {
+    0: 'col-span-2 row-span-2',  // hero
+    1: 'col-span-2 row-span-1',
+    2: 'col-span-1 row-span-2',
+    3: 'col-span-1 row-span-1',
+    4: 'col-span-1 row-span-1',
+    5: 'col-span-2 row-span-1',
+    6: 'col-span-1 row-span-1',
+    7: 'col-span-1 row-span-1',
+    8: 'col-span-2 row-span-2',  // hero B
+    9: 'col-span-1 row-span-1',
+    10: 'col-span-1 row-span-1',
+  };
+  return spans[i] ?? 'col-span-1 row-span-1';
 }
 
 export default function GameShowcase() {
   const [activeId, setActiveId] = useState<string | null>(null);
-  const rowRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { isMobile } = useResponsive();
 
-  // ── Width distribution animator ──────────────────────────────────────────
-  const animateWidths = useCallback((activeIndex: number | null) => {
-    if (!rowRef.current) return;
-
-    const rowWidth = rowRef.current.offsetWidth;
-    const totalGap = GAP_PX * (CARD_COUNT - 1);
-    const availableWidth = rowWidth - totalGap;
-
-    const pcts = computeWidths(activeIndex);
-    const targetHeights = pcts.map((_, i) =>
-      i === activeIndex ? 520 : 320
-    );
-
-    pcts.forEach((pct, i) => {
-      const el = cardRefs.current[i];
-      if (!el) return;
-      const targetPx = (pct / 100) * availableWidth;
-      gsap.to(el, {
-        width: targetPx,
-        height: targetHeights[i],
-        duration: 0.45,
-        ease: 'power4.out',
-        overwrite: 'auto',
-      });
-    });
-  }, []);
-
-  // Re-run whenever active card changes
-  useEffect(() => {
-    const activeIndex = activeId
-      ? GAMES.findIndex((g) => g.id === activeId)
-      : null;
-    animateWidths(activeIndex === -1 ? null : activeIndex);
-  }, [activeId, animateWidths]);
-
-  // Set initial pixel widths on mount and on resize
-  useEffect(() => {
-    const setInitialWidths = () => animateWidths(null);
-    setInitialWidths();
-    window.addEventListener('resize', setInitialWidths);
-    return () => window.removeEventListener('resize', setInitialWidths);
-  }, [animateWidths]);
-
-  // Scroll reveal
   useEffect(() => {
     if (!containerRef.current) return;
     const prefersReducedMotion = window.matchMedia(
@@ -104,10 +40,7 @@ export default function GameShowcase() {
     if (prefersReducedMotion) {
       containerRef.current
         .querySelectorAll<HTMLElement>('.game-card')
-        .forEach((c) => {
-          c.style.opacity = '1';
-          c.style.transform = 'none';
-        });
+        .forEach((c) => { c.style.opacity = '1'; c.style.transform = 'none'; });
       return;
     }
     animateCardsIn(containerRef.current);
@@ -135,7 +68,6 @@ export default function GameShowcase() {
         </h2>
 
         {isMobile ? (
-          // ── Mobile: snap carousel ────────────────────────────────────────
           <div
             className="flex overflow-x-auto px-4"
             style={{
@@ -154,29 +86,25 @@ export default function GameShowcase() {
                   onHover={setActiveId}
                   onLeave={() => setActiveId(null)}
                   isMobile={isMobile}
-                  cardRef={null}
                 />
               </div>
             ))}
           </div>
         ) : (
-          // ── Desktop: controlled flex row ─────────────────────────────────
           <div
-            ref={rowRef}
-            className="flex items-stretch overflow-hidden px-4"
-            style={{ gap: `${GAP_PX}px` }}
+            className="grid grid-cols-4 auto-rows-[180px] gap-3 px-4"
           >
             {GAMES.map((game: GameEntry, i: number) => (
-              <GameCard
-                key={game.id}
-                game={game}
-                isActive={activeId === game.id}
-                neighborDistance={getNeighborDistance(i)}
-                onHover={setActiveId}
-                onLeave={() => setActiveId(null)}
-                isMobile={isMobile}
-                cardRef={(el) => { cardRefs.current[i] = el; }}
-              />
+              <div key={game.id} className={gridSpan(i)}>
+                <GameCard
+                  game={game}
+                  isActive={activeId === game.id}
+                  neighborDistance={getNeighborDistance(i)}
+                  onHover={setActiveId}
+                  onLeave={() => setActiveId(null)}
+                  isMobile={isMobile}
+                />
+              </div>
             ))}
           </div>
         )}

@@ -14,8 +14,6 @@ interface GameCardProps {
   onHover: (id: string) => void;
   onLeave: () => void;
   isMobile: boolean;
-  /** Ref callback — GameShowcase owns the DOM ref for width control */
-  cardRef: ((el: HTMLDivElement | null) => void) | null;
 }
 
 export default function GameCard({
@@ -25,7 +23,6 @@ export default function GameCard({
   onHover,
   onLeave,
   isMobile,
-  cardRef,
 }: GameCardProps) {
   const innerRef = useRef<HTMLDivElement>(null);
   const artworkRef = useRef<HTMLDivElement>(null);
@@ -80,25 +77,12 @@ export default function GameCard({
     }
   };
 
-  // Combine the external ref callback with our inner ref
-  const setRef = (el: HTMLDivElement | null) => {
-    (innerRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
-    cardRef?.(el);
-  };
+  // ponytail: drop setRef — grid layout, no GSAP width control needed
 
   return (
     <div
-      ref={setRef}
-      className="game-card relative overflow-hidden rounded-2xl cursor-pointer flex-shrink-0"
-      style={{
-        // Height is also controlled by GameShowcase via GSAP, but we seed it
-        height: isActive ? 520 : 320,
-        display: 'flex',
-        flexDirection: 'column',
-        // Prevent flex from overriding the GSAP-set pixel width
-        flexGrow: 0,
-        minWidth: 0,
-      }}
+      ref={innerRef as React.Ref<HTMLDivElement>}
+      className="game-card relative overflow-hidden rounded-2xl cursor-pointer h-full w-full flex flex-col"
       onMouseEnter={() => onHover(game.id)}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
