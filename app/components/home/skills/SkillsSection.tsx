@@ -5,53 +5,62 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Container from '../../Container';
 import { skills } from '../../../data/skills';
+import LogoLoop from './LogoLoop';
+import {
+  SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiNodedotjs,
+  SiGit, SiVscodium, SiFigma, SiAmazonwebservices,
+} from 'react-icons/si';
+import { TbTestPipe, TbBug, TbReportAnalytics, TbFileDescription, TbUsers, TbBrain } from 'react-icons/tb';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── data ─────────────────────────────────────────────────────────────────────
-const ALL_SKILLS = skills.flatMap((g) =>
-  g.items.map((item) => ({ item, tier: g.tier }))
-);
+// ── LogoLoop data ─────────────────────────────────────────────────────────────
+// Row 1 — tech stack icons
+const TECH_LOGOS = [
+  { node: <SiJavascript />,     title: 'JavaScript',  href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+  { node: <SiTypescript />,     title: 'TypeScript',  href: 'https://www.typescriptlang.org' },
+  { node: <SiReact />,          title: 'React',       href: 'https://react.dev' },
+  { node: <SiNextdotjs />,      title: 'Next.js',     href: 'https://nextjs.org' },
+  { node: <SiNodedotjs />,      title: 'Node.js',     href: 'https://nodejs.org' },
+  { node: <SiGit />,            title: 'Git',         href: 'https://git-scm.com' },
+  { node: <SiVscodium />,       title: 'VS Code',     href: 'https://code.visualstudio.com' },
+  { node: <SiFigma />,          title: 'Figma',       href: 'https://figma.com' },
+  { node: <SiAmazonwebservices />, title: 'AWS',      href: 'https://aws.amazon.com' },
+];
 
-// Duplicate for seamless infinite loop (both rows share the same data)
-const MARQUEE_ITEMS = [...ALL_SKILLS, ...ALL_SKILLS];
+// Row 2 — QA / soft skill icons
+const QA_LOGOS = [
+  { node: <TbTestPipe />,        title: 'Manual Testing'     },
+  { node: <TbBug />,             title: 'Bug Identification'  },
+  { node: <TbReportAnalytics />, title: 'Regression Testing' },
+  { node: <TbFileDescription />, title: 'Documentation'      },
+  { node: <TbUsers />,           title: 'Collaboration'      },
+  { node: <TbBrain />,           title: 'Analytical Thinking'},
+  { node: <TbTestPipe />,        title: 'Data Validation'    },
+  { node: <TbReportAnalytics />, title: 'Progress Reporting' },
+];
 
 // ─────────────────────────────────────────────────────────────────────────────
 export default function SkillsSection() {
-  const sectionRef     = useRef<HTMLElement>(null);
-  const headingRef     = useRef<HTMLDivElement>(null);
-  const lineRef        = useRef<HTMLDivElement>(null);
-  // Row 1 — scrolls left (original)
-  const marqueeRef     = useRef<HTMLDivElement>(null);
-  // Row 2 — scrolls right (reverse)
-  const marqueeRevRef  = useRef<HTMLDivElement>(null);
-  const gridRef        = useRef<HTMLDivElement>(null);
+  const sectionRef    = useRef<HTMLElement>(null);
+  const headingRef    = useRef<HTMLDivElement>(null);
+  const lineRef       = useRef<HTMLDivElement>(null);
+  const logoRowRef    = useRef<HTMLDivElement>(null);
+  const gridRef       = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const prefersReduced =
         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // ── marquee band entrance ──────────────────────────────────────────
-      gsap.set([marqueeRef.current, marqueeRevRef.current], { opacity: 0, y: 24 });
-      gsap.to(marqueeRef.current, {
-        opacity: 1,
-        y: 0,
+      // ── logo rows entrance ───────────────────────────────────────────────
+      gsap.from(logoRowRef.current, {
+        opacity: 0,
+        y: 24,
         duration: 0.6,
         ease: 'power2.out',
         scrollTrigger: {
-          trigger: marqueeRef.current,
-          start: 'top 88%',
-          toggleActions: 'play none none none',
-        },
-      });
-      gsap.to(marqueeRevRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: marqueeRevRef.current,
+          trigger: logoRowRef.current,
           start: 'top 88%',
           toggleActions: 'play none none none',
         },
@@ -83,85 +92,6 @@ export default function SkillsSection() {
           },
         }
       );
-
-      // ── marquee row 1: left-scroll (28 s) ────────────────────────────────
-      if (marqueeRef.current && !prefersReduced) {
-        const track = marqueeRef.current.querySelector(
-          '.marquee-track-fwd'
-        ) as HTMLElement | null;
-        if (track) {
-          const totalWidth = track.scrollWidth / 2;
-
-          const loopTween = gsap.to(track, {
-            x: -totalWidth,
-            duration: 28,
-            ease: 'none',
-            repeat: -1,
-            onRepeat() {
-              gsap.set(track, { x: 0 });
-            },
-          });
-
-          // Velocity scrub: speed up while scrolling through section
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            onUpdate(self) {
-              const velocity = Math.abs(self.getVelocity());
-              loopTween.timeScale(1 + velocity / 1500);
-              gsap.to(loopTween, {
-                timeScale: 1,
-                duration: 0.8,
-                delay: 0.1,
-                overwrite: 'auto',
-                ease: 'power2.out',
-              });
-            },
-          });
-        }
-      }
-
-      // ── marquee row 2: right-scroll / reverse (22 s, async feel) ─────────
-      if (marqueeRevRef.current && !prefersReduced) {
-        const trackRev = marqueeRevRef.current.querySelector(
-          '.marquee-track-rev'
-        ) as HTMLElement | null;
-        if (trackRev) {
-          const totalWidthRev = trackRev.scrollWidth / 2;
-
-          // Start at -totalWidth so it scrolls FROM left end back to zero
-          gsap.set(trackRev, { x: -totalWidthRev });
-
-          const loopTweenRev = gsap.to(trackRev, {
-            x: 0,
-            duration: 22,
-            ease: 'none',
-            repeat: -1,
-            onRepeat() {
-              gsap.set(trackRev, { x: -totalWidthRev });
-            },
-          });
-
-          // Velocity scrub for reverse row too
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            onUpdate(self) {
-              const velocity = Math.abs(self.getVelocity());
-              loopTweenRev.timeScale(1 + velocity / 1500);
-              gsap.to(loopTweenRev, {
-                timeScale: 1,
-                duration: 0.8,
-                delay: 0.1,
-                overwrite: 'auto',
-                ease: 'power2.out',
-              });
-            },
-          });
-        }
-      }
 
       // ── category cards: animate in, then ambient float ───────────────────
       const cards = gridRef.current ? Array.from(gridRef.current.children) : [];
@@ -253,70 +183,39 @@ export default function SkillsSection() {
         </div>
       </Container>
 
-      {/* ── marquee band: two rows ── */}
-      <div className="relative z-10 flex flex-col gap-0 mb-12 border-y border-[#1E1E1E]">
-        {/* Row 1 — forward (left) */}
-        <div
-          ref={marqueeRef}
-          className="
-            relative w-full overflow-hidden py-3
-            before:absolute before:left-0 before:top-0 before:h-full before:w-24
-            before:bg-gradient-to-r before:from-[#0A0A0A] before:to-transparent before:z-10 before:pointer-events-none
-            after:absolute after:right-0 after:top-0 after:h-full after:w-24
-            after:bg-gradient-to-l after:from-[#0A0A0A] after:to-transparent after:z-10 after:pointer-events-none
-          "
-        >
-          <div
-            className="marquee-track-fwd flex gap-4 will-change-transform"
-            style={{ whiteSpace: 'nowrap' }}
-          >
-            {MARQUEE_ITEMS.map((s, i) => (
-              <span
-                key={i}
-                className="
-                  inline-flex items-center gap-2 px-4 py-1.5 border border-[#2A2A2A]
-                  bg-[#0D0D0D] font-pixel text-[9px] tracking-wider shrink-0
-                  text-[#B0B0B0] hover:border-[#555] hover:text-white
-                  transition-colors duration-200 cursor-default
-                "
-              >
-                <span className="text-[#444] font-pixel text-[8px]">◈</span>
-                {s.item}
-              </span>
-            ))}
-          </div>
+      {/* ── LogoLoop rows ── */}
+      <div ref={logoRowRef} className="relative z-10 flex flex-col gap-0 mb-12 border-y border-[#1E1E1E] py-1">
+        {/* Row 1 — tech stack, scrolls left */}
+        <div className="py-3 border-b border-[#141414]">
+          <LogoLoop
+            logos={TECH_LOGOS}
+            speed={60}
+            direction="left"
+            logoHeight={36}
+            gap={48}
+            hoverSpeed={0}
+            fadeOut
+            fadeOutColor="#0a0a0a"
+            scaleOnHover
+            ariaLabel="Tech stack"
+            style={{ color: '#888' }}
+          />
         </div>
-
-        {/* Row 2 — reverse (right), 22 s, slightly dimmer */}
-        <div
-          ref={marqueeRevRef}
-          className="
-            relative w-full overflow-hidden py-3 border-t border-[#141414]
-            before:absolute before:left-0 before:top-0 before:h-full before:w-24
-            before:bg-gradient-to-r before:from-[#0A0A0A] before:to-transparent before:z-10 before:pointer-events-none
-            after:absolute after:right-0 after:top-0 after:h-full after:w-24
-            after:bg-gradient-to-l after:from-[#0A0A0A] after:to-transparent after:z-10 after:pointer-events-none
-          "
-        >
-          <div
-            className="marquee-track-rev flex gap-4 will-change-transform"
-            style={{ whiteSpace: 'nowrap' }}
-          >
-            {MARQUEE_ITEMS.map((s, i) => (
-              <span
-                key={i}
-                className="
-                  inline-flex items-center gap-2 px-4 py-1.5 border border-[#222]
-                  bg-[#0D0D0D] font-pixel text-[9px] tracking-wider shrink-0
-                  text-[#888] hover:border-[#444] hover:text-[#C0C0C0]
-                  transition-colors duration-200 cursor-default
-                "
-              >
-                <span className="text-[#333] font-pixel text-[8px]">◇</span>
-                {s.item}
-              </span>
-            ))}
-          </div>
+        {/* Row 2 — QA skills, scrolls right */}
+        <div className="py-3">
+          <LogoLoop
+            logos={QA_LOGOS}
+            speed={45}
+            direction="right"
+            logoHeight={32}
+            gap={48}
+            hoverSpeed={0}
+            fadeOut
+            fadeOutColor="#0a0a0a"
+            scaleOnHover
+            ariaLabel="QA and soft skills"
+            style={{ color: '#555' }}
+          />
         </div>
       </div>
 

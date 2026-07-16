@@ -5,53 +5,10 @@ import { gsap } from 'gsap';
 import Button from '../ui/Button';
 import Container from '../Container';
 import Link from 'next/link';
+import Lanyard from '../Lanyard';
 
 const fullTitle = 'thatdevjohnmark';
 const roles = ['QA_SPECIALIST', 'PROGRAMMER', 'FULLSTACK_DEV', 'MANUAL_TESTER'];
-
-const logLines = [
-  '> INIT.SYS v2.0.1',
-  '> Loading QA integrity kernel...',
-  '[ OK ] Manual exploratory flows verified.',
-  '[ OK ] Cross-viewport responsive alignment stable.',
-  '[ OK ] WCAG AAA: Contrast ratio satisfies all guidelines.',
-  '[ OK ] Error boundary handlers active and stable.',
-  '[ OK ] State persistence verified across sessions.',
-  '> Manual review sequence: COMPLETE.',
-  '> System integrity: 100% VERIFIED.',
-  '> READY.',
-];
-
-const specsLines = [
-  '================================',
-  '  CANDIDATE SPECIFICATION v1.0  ',
-  '================================',
-  '',
-  'NAME:    John Mark Tactacan',
-  'ROLE:    QA Specialist',
-  'STACK:   Next.js / React / TypeScript',
-  'FOCUS:   Manual Testing & Audit',
-  '',
-  '================================',
-  '  QUALITY METRICS               ',
-  '================================',
-  '',
-  'BUG REPRO RATE:    100%',
-  'TEST COVERAGE:     Complete',
-  'DOCUMENTATION:     Thorough',
-  'ATTN TO DETAIL:    Maximum',
-  '',
-  '================================',
-  '  SYSTEM STATUS: NOMINAL        ',
-  '================================',
-];
-
-const statsData = [
-  { label: 'TEST CASES', val: '100%', pct: 100 },
-  { label: 'BUG DETECT', val: '95%', pct: 95 },
-  { label: 'DOCS', val: '100%', pct: 100 },
-  { label: 'DEPLOY', val: 'READY', pct: 90 },
-];
 
 const metricsData = [
   { label: 'MANUAL', value: '100%', sub: 'COVERAGE' },
@@ -110,17 +67,12 @@ export default function Hero() {
   const pitchRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const metricsRef = useRef<HTMLDivElement>(null);
-  const terminalRef = useRef<HTMLDivElement>(null);
-  const terminalContentRef = useRef<HTMLDivElement>(null);
 
-  const [activeTab, setActiveTab] = useState<'specs' | 'logs' | 'stats'>('specs');
-  const [visibleLogs, setVisibleLogs] = useState<string[]>([]);
-  const [logIndex, setLogIndex] = useState(0);
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const logsContainerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const roleFrameRef = useRef(0);
-  const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const scrambleCleanupRef = useRef<() => void>(() => {});
+
+  useEffect(() => { setMounted(true); }, []);
 
   // ── GSAP entrance timeline (replaces framer-motion) ────────────────────────
   useEffect(() => {
@@ -164,20 +116,6 @@ export default function Hero() {
         { opacity: 1, y: 0, duration: 0.5 },
         '-=0.1'
       );
-      // terminal panel — slight rotation + scale bounce
-      tl.fromTo(
-        terminalRef.current,
-        { opacity: 0, x: 30, rotate: 2, scale: 0.96 },
-        {
-          opacity: 1,
-          x: 0,
-          rotate: 0,
-          scale: 1,
-          duration: 0.7,
-          ease: 'power2.out',
-        },
-        '-=0.35'
-      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -186,14 +124,10 @@ export default function Hero() {
   // ── text scramble on name ─────────────────────────────────────────────────
   useEffect(() => {
     if (!nameRef.current) return;
-    // small delay so entrance settles first
     const timeout = setTimeout(() => {
-      scrambleCleanupRef.current = scrambleText(nameRef.current!, fullTitle);
+      scrambleText(nameRef.current!, fullTitle);
     }, 1100);
-    return () => {
-      clearTimeout(timeout);
-      scrambleCleanupRef.current();
-    };
+    return () => clearTimeout(timeout);
   }, []);
 
   // ── pixel grid mouse parallax ─────────────────────────────────────────────
@@ -257,52 +191,10 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [currentRoleIndex]);
 
-  // ── log cycling ───────────────────────────────────────────────────────────
-  useEffect(() => {
-    if (activeTab !== 'logs') {
-      if (resetTimeoutRef.current) {
-        clearTimeout(resetTimeoutRef.current);
-        resetTimeoutRef.current = undefined;
-      }
-      return;
-    }
-
-    if (logIndex === 0) {
-      setVisibleLogs([logLines[0]]);
-      setLogIndex(1);
-      return;
-    }
-
-    if (logIndex >= logLines.length) {
-      resetTimeoutRef.current = setTimeout(() => setLogIndex(0), 3000);
-      return () => {
-        if (resetTimeoutRef.current) {
-          clearTimeout(resetTimeoutRef.current);
-          resetTimeoutRef.current = undefined;
-        }
-      };
-    }
-
-    const timeout = setTimeout(() => {
-      setVisibleLogs((prev) => [...prev, logLines[logIndex]]);
-      setLogIndex((prev) => prev + 1);
-    }, 500);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [logIndex, activeTab]);
-
-  useEffect(() => {
-    if (activeTab === 'logs' && logsContainerRef.current) {
-      logsContainerRef.current.scrollTop = logsContainerRef.current.scrollHeight;
-    }
-  }, [visibleLogs, activeTab]);
-
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden border-b-[3px] border-[#1A1A1A] bg-[#000000] py-16 lg:py-24"
+      className="relative border-b-[3px] border-[#1A1A1A] bg-[#000000] py-16 lg:py-24"
     >
       {/* Pixel Grid Background */}
       <div
@@ -319,7 +211,7 @@ export default function Hero() {
         style={{ willChange: 'transform' }}
       />
 
-      <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
+      <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-[58%_42%] lg:gap-16">
         {/* LEFT COLUMN */}
         <div className="space-y-6">
           {/* Status badge */}
@@ -399,112 +291,17 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN - Terminal */}
-        <div ref={terminalRef} style={{ opacity: 0 }}>
-          <div className="relative">
-            <div className="absolute -inset-1 bg-white/[0.02] blur-xl pointer-events-none" />
-
-            <div className="relative border-[3px] border-[#333] bg-[#0A0A0A] overflow-hidden">
-              {/* Terminal header */}
-              <div className="flex items-center justify-between border-b-[2px] border-[#333] bg-[#050505] px-4 py-2">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 border-[2px] border-[#555] bg-[#333]" />
-                  <div className="w-3 h-3 border-[2px] border-[#555] bg-[#222]" />
-                  <div className="w-3 h-3 border-[2px] border-[#555] bg-[#444]" />
-                </div>
-                <span className="font-pixel text-[8px] text-[#555] tracking-[0.2em]">
-                  TERMINAL_V1.0
-                </span>
-                <div className="w-10" />
-              </div>
-
-              {/* Tabs */}
-              <div className="flex border-b-[2px] border-[#333] bg-[#050505]">
-                {([
-                  { key: 'specs' as const, label: '[ SPECS ]' },
-                  { key: 'logs' as const, label: '[ LOGS ]' },
-                  { key: 'stats' as const, label: '[ STATS ]' },
-                ] as const).map(({ key, label }) => (
-                  <button
-                    key={key}
-                    onClick={() => {
-                      setActiveTab(key);
-                      if (key === 'logs') {
-                        setVisibleLogs([]);
-                        setLogIndex(0);
-                      }
-                    }}
-                    className={`px-4 py-2 font-pixel text-[10px] tracking-wider cursor-pointer transition-colors duration-150 border-r-[2px] border-[#333] ${
-                      activeTab === key
-                        ? 'bg-[#0A0A0A] text-[#FFFFFF]'
-                        : 'text-[#666] hover:text-[#B0B0B0] hover:bg-[#080808]'
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Terminal content */}
-              <div ref={terminalContentRef} className="relative aspect-[4/3] w-full overflow-hidden bg-[#0A0A0A] p-4">
-                {/* Scanline overlay */}
-                <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.05)_2px,rgba(0,0,0,0.05)_4px)] pointer-events-none z-10" />
-
-                {/* SPECS tab */}
-                {activeTab === 'specs' && (
-                  <div className="h-full overflow-y-auto font-terminal text-[16px] leading-relaxed text-[#B0B0B0] whitespace-pre">
-                    {specsLines.map((line, i) => (
-                      <div
-                        key={i}
-                        className={line.startsWith('=') ? 'text-[#808080]' : line.startsWith('  ') && line.includes(':') ? 'text-[#FFFFFF]' : 'text-[#B0B0B0]'}
-                      >
-                        {line}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* LOGS tab */}
-                {activeTab === 'logs' && (
-                  <div
-                    ref={logsContainerRef}
-                    className="h-full overflow-y-auto font-terminal text-[16px] leading-relaxed space-y-1"
-                  >
-                    {visibleLogs.map((line, i) => (
-                      <div
-                        key={i}
-                        className={line.startsWith('[ OK ]') ? 'text-[#FFFFFF]' : line.startsWith('>') ? 'text-[#B0B0B0]' : 'text-[#808080]'}
-                      >
-                        {line}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* STATS tab */}
-                {activeTab === 'stats' && (
-                  <div className="h-full font-terminal text-[16px] space-y-4">
-                    {statsData.map(({ label, val, pct }) => (
-                      <div key={label}>
-                        <div className="flex justify-between font-pixel text-[10px] text-[#B0B0B0] mb-1">
-                          <span>{label}</span>
-                          <span className="text-[#FFFFFF]">{val}</span>
-                        </div>
-                        <div className="h-[8px] bg-[#1A1A1A] border border-[#333]">
-                          <div
-                            className="h-full bg-[#FFFFFF]"
-                            style={{ width: `${pct}%` }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+        {/* RIGHT COLUMN — Lanyard anchor */}
+        <div className="relative overflow-visible h-[800px]">
+          {mounted && (
+            <div className="absolute top-[-120px] right-[-40px] w-[700px] h-[900px] overflow-visible">
+              <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} frontImage="/images/profile/man-holding-coffee.jpg" />
             </div>
-          </div>
+          )}
         </div>
+
       </Container>
+
     </section>
   );
 }
