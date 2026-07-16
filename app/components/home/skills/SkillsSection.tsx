@@ -8,8 +8,9 @@ import { skills } from '../../../data/skills';
 import LogoLoop from './LogoLoop';
 import {
   SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiNodedotjs,
-  SiGit, SiVscodium, SiFigma, SiAmazonwebservices,
+  SiGit, SiVscodium, SiFigma,
 } from 'react-icons/si';
+import { FaAws } from 'react-icons/fa';
 import { TbTestPipe, TbBug, TbReportAnalytics, TbFileDescription, TbUsers, TbBrain } from 'react-icons/tb';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -25,7 +26,7 @@ const TECH_LOGOS = [
   { node: <SiGit />,            title: 'Git',         href: 'https://git-scm.com' },
   { node: <SiVscodium />,       title: 'VS Code',     href: 'https://code.visualstudio.com' },
   { node: <SiFigma />,          title: 'Figma',       href: 'https://figma.com' },
-  { node: <SiAmazonwebservices />, title: 'AWS',      href: 'https://aws.amazon.com' },
+  { node: <FaAws />, title: 'AWS',      href: 'https://aws.amazon.com' },
 ];
 
 // Row 2 — QA / soft skill icons
